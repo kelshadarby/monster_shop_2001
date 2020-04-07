@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "As a user", type: :feature do
   describe 'When creating an new user account I' do
     before(:all) do
-
       @user1 = User.new(
         email_address: "user1@example.com",
         password: "password",
@@ -102,6 +101,10 @@ RSpec.describe "As a user", type: :feature do
 
       expect(page).to have_content("Email is already in use.")
     end
-
+    
+    after(:all) do
+      UserDetail.destroy_all
+      User.destroy_all
+    end
   end
 end
