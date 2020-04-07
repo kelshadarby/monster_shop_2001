@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root "welcome#index"
+  
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
