@@ -15,16 +15,18 @@ class UsersController < ApplicationController
       render :new
     end
   end
-  
+
   def show
+    user = User.find(current_user.id)
+    flash[:success] = "Logged in as #{user.user_detail.name}"
   end
 
   private
 
   def user_params
     params.permit(
-      :email_address, 
-      :password, 
+      :email_address,
+      :password,
       user_detail_attributes: [
         :name,
         :street_address,
