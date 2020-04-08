@@ -23,7 +23,7 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in "Password", with: @user1.password
       click_button "Login"
 
-      expect(page).to have_content("Welcome #{@user1.user_detail.name}")
+      expect(page).to have_content("Logged in as #{@user1.user_detail.name}")
     end
 
     it " default users redirect to their profile page upon login" do
@@ -32,7 +32,7 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in "Password", with: @user1.password
       click_button "Login"
 
-      expect(page).to have_content("Welcome #{@user1.user_detail.name}")
+      expect(page).to have_content("Logged in as #{@user1.user_detail.name}")
       expect(current_path).to eq("/profile")
     end
 
@@ -56,7 +56,7 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in "Password", with: @user2.password
       click_button "Login"
 
-      expect(page).to have_content("Welcome #{@user2.user_detail.name}")
+      expect(page).to have_content("Logged in as #{@user2.user_detail.name}")
       expect(current_path).to eq("/merchant/dashboard")
     end
 
@@ -80,7 +80,7 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in "Password", with: @user3.password
       click_button "Login"
 
-      expect(page).to have_content("Welcome #{@user3.user_detail.name}")
+      expect(page).to have_content("Logged in as #{@user3.user_detail.name}")
       expect(current_path).to eq("/admin/dashboard")
     end
 
@@ -104,7 +104,7 @@ RSpec.describe "As a visitor", type: :feature do
         fill_in "Password", with: @user1.password
         click_button "Login"
 
-        expect(page).to have_content("Welcome #{@user1.user_detail.name}")
+        expect(page).to have_content("Logged in as #{@user1.user_detail.name}")
         expect(current_path).to eq("/profile")
 
         visit "/login"
