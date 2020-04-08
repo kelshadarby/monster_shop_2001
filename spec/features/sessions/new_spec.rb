@@ -84,6 +84,20 @@ RSpec.describe "As a visitor", type: :feature do
       expect(current_path).to eq("/admin/dashboard")
     end
 
+    it "will not log in with bad credentials" do
+      fake_email = "youknowit@example.com"
+      fake_password = "hackerman"
+
+      visit '/login'
+      fill_in "Email Address", with: fake_email
+      fill_in "Password", with: fake_password
+      click_button "Login"
+
+      expect(page).to_not have_content("Welcome")
+      expect(page).to have_content("Invalid Credentials")
+      expect(current_path).to eq("/login")
+    end
+
     after(:all) do
       UserDetail.destroy_all
       User.destroy_all
