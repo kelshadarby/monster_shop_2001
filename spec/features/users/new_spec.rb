@@ -6,7 +6,7 @@ RSpec.describe "As a user", type: :feature do
       @user1 = User.new(
         email_address: "user1@example.com",
         password: "password",
-        user_detail: UserDetail.new(        
+        user_detail: UserDetail.new(
           name: "User 1",
           street_address: "123 Example St",
           city: "Userville",
@@ -27,21 +27,33 @@ RSpec.describe "As a user", type: :feature do
       )
     end
     it "can register a new user with a unique email" do
+      user3 = User.new(
+        email_address: "user3@example.com",
+        password: "password",
+        user_detail: UserDetail.new(
+          name: "User 3",
+          street_address: "123 Example St",
+          city: "Userville",
+          state: "State 3",
+          zip_code: "12345"
+        )
+      )
+
       visit '/'
 
       click_link 'Register'
 
       expect(current_path).to eq '/register'
-      fill_in "user_detail_attributes[name]", with: @user1.user_detail.name
-      fill_in "user_detail_attributes[street_address]", with: @user1.user_detail.street_address
-      fill_in "user_detail_attributes[city]", with: @user1.user_detail.city
-      fill_in "user_detail_attributes[state]", with: @user1.user_detail.state
-      fill_in "user_detail_attributes[zip_code]", with: @user1.user_detail.zip_code
-      fill_in "Email Address", with: @user1.email_address
-      fill_in "Password", with: @user1.password
-      fill_in "Confirm Password", with: @user1.password
+      fill_in "user_detail_attributes[name]", with: user3.user_detail.name
+      fill_in "user_detail_attributes[street_address]", with: user3.user_detail.street_address
+      fill_in "user_detail_attributes[city]", with: user3.user_detail.city
+      fill_in "user_detail_attributes[state]", with: user3.user_detail.state
+      fill_in "user_detail_attributes[zip_code]", with: user3.user_detail.zip_code
+      fill_in "Email Address", with: user3.email_address
+      fill_in "Password", with: user3.password
+      fill_in "Confirm Password", with: user3.password
       click_button "Submit"
-      
+
       expect(current_path).to eq '/profile'
       expect(page).to have_content("Registration sucessful! You are now logged in.")
     end
@@ -78,7 +90,7 @@ RSpec.describe "As a user", type: :feature do
       visit '/register'
 
       @user2.email_address = @user1.email_address
-      
+
       fill_in "user_detail_attributes[name]", with: @user2.user_detail.name
       fill_in "user_detail_attributes[street_address]", with: @user2.user_detail.street_address
       fill_in "user_detail_attributes[city]", with: @user2.user_detail.city
@@ -101,7 +113,7 @@ RSpec.describe "As a user", type: :feature do
 
       expect(page).to have_content("Email is already in use.")
     end
-    
+
     after(:all) do
       UserDetail.destroy_all
       User.destroy_all
