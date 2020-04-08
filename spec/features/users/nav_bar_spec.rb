@@ -16,7 +16,7 @@ RSpec.describe "As a user (role 1)", type: :feature do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-    visit "/user/profile"
+    visit "/default/profile"
 
     expect(page).to have_link("Home")
     expect(page).to have_link("All Merchants")
