@@ -7,9 +7,9 @@ class User < ApplicationRecord
   validates_confirmation_of :password
   validates_presence_of :role
 
-  enum role: {visitor: 0, user: 1, merchant: 2, admin: 3}
+  enum role: {visitor: 0, default: 1, merchant: 2, admin: 3}
   has_secure_password
-  
+
   has_one :user_detail
   accepts_nested_attributes_for :user_detail
 end
