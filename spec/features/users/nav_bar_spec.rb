@@ -18,16 +18,27 @@ RSpec.describe "As a user (role 1)", type: :feature do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
 
-      visit "/default/profile"
-
-      expect(page).to have_link("Home")
-      expect(page).to have_link("All Merchants")
-      expect(page).to have_link("All Items")
-      expect(page).to have_link("Cart: 0")
-      expect(page).to have_link("View My Profile")
-      expect(page).to have_link("Logout")
+      visit "/profile"
 
       expect(page).to have_content("Logged in as #{default_user.user_detail.name}")
+
+      click_link("Home")
+      expect(current_path).to eq(root_path)
+
+      click_link("All Merchants")
+      expect(current_path).to eq(merchant_path)
+
+      click_link("All Items")
+      expect(current_path).to eq(items_path)
+
+      click_link("Cart: 0")
+      expect(current_path).to eq(cart_path)
+
+      click_link("View My Profile")
+      expect(current_path).to eq(profile_path(default_user.id))
+
+      click_link("Logout")
+      expect(current_path).to eq(root_path)
     end
   end
   describe "as a merchant (role 2)" do
@@ -49,13 +60,26 @@ RSpec.describe "As a user (role 1)", type: :feature do
 
       visit "/"
 
-      expect(page).to have_link("Home")
-      expect(page).to have_link("All Merchants")
-      expect(page).to have_link("All Items")
-      expect(page).to have_link("Cart: 0")
-      expect(page).to have_link("View My Profile")
-      expect(page).to have_link("Logout")
-      expect(page).to have_link("Dashboard")
+      click_link("Home")
+      expect(current_path).to eq(root_path)
+
+      click_link("All Merchants")
+      expect(current_path).to eq(merchant_path)
+
+      click_link("All Items")
+      expect(current_path).to eq(items_path)
+
+      click_link("Cart: 0")
+      expect(current_path).to eq(cart_path)
+
+      click_link("View My Profile")
+      expect(current_path).to eq(profile_path(merchant_user.id))
+
+      click_link("Logout")
+      expect(current_path).to eq(root_path)
+
+      click_link("Dashboard")
+      expect(current_path).to eq(merchant_dashboard_path)
     end
   end
 end
