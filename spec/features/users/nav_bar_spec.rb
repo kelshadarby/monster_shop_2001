@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "As a user (role 1)", type: :feature do
+RSpec.describe "As a user", type: :feature do
   describe "default (role 1)" do
     it "can see profile page and logout links without login or register links" do
       default_user = User.create(
@@ -39,6 +39,31 @@ RSpec.describe "As a user (role 1)", type: :feature do
 
       click_link("Logout")
       expect(current_path).to eq(root_path)
+    end
+    it "cannot access any path beginning with merchant or admin" do
+      default_user = User.create(
+        email_address: "user1@example.com",
+        password: "password",
+        role: "default",
+        user_detail: UserDetail.new(
+          name: "User 1",
+          street_address: "123 Example St",
+          city: "Userville",
+          state: "State 1",
+          zip_code: "12345"
+        )
+      )
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+
+      visit "/merchant/dashboard"
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+
+      visit "/admin/dashboard"
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+
+      visit "/admin/users"
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
   end
   describe "as a merchant (role 2)" do
