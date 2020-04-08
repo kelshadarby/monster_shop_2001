@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-
+    dynamic_redirect unless current_user.nil?
   end
 
   def create
