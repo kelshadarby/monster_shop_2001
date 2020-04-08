@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
   end
 
   private
+  
   def dynamic_redirect
     redirect_to "/profile" if current_user.role == "default"
     redirect_to "/merchant/dashboard" if current_user.role == "merchant"

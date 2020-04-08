@@ -34,7 +34,7 @@ RSpec.describe "As a user (role 1)", type: :feature do
       click_link("Cart: 0")
       expect(current_path).to eq(cart_path)
 
-      click_link("View My Profile")
+      click_link("Profile")
       expect(current_path).to eq('/profile')
 
       click_link("Logout")
@@ -72,7 +72,7 @@ RSpec.describe "As a user (role 1)", type: :feature do
       click_link("Cart: 0")
       expect(current_path).to eq(cart_path)
 
-      click_link("View My Profile")
+      click_link("Profile")
       expect(current_path).to eq('/profile')
 
       click_link("Logout")
