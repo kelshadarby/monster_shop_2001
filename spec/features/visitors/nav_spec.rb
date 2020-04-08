@@ -22,8 +22,8 @@ RSpec.describe 'As a visitor I have a navbar', type: :feature do
 
     it 'Cart' do
       visit '/'
-      click_on 'All Merchants'
-      expect(current_path).to eq(merchants_path)
+      click_on 'Cart'
+      expect(current_path).to eq(cart_path)
     end
 
     it 'Login' do
