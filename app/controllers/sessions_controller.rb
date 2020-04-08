@@ -20,6 +20,10 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    current_user = nil
+    session[:cart] = {}
+    cart.contents = {} if cart.contents != {}
+    flash[:success] = "Logout Succesful"
     redirect_to root_path
   end
 
