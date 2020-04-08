@@ -17,8 +17,8 @@
       <%= link_to "Register", register_path if !current_user %>
       <%= link_to "Login", login_path if !current_user %>
       <%= link_to "View My Profile", "/profile" if current_user %>
-      <%= link_to "Dashboard" if current_user && current_user.role == "merchant" %>
-      <%= link_to "Logout" if current_user %>
+      <%= link_to "Dashboard", merchant_dashboard_path if current_user && current_user.role == "merchant" %>
+      <%= link_to "Logout", '/logout', method: :delete if current_user %>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
