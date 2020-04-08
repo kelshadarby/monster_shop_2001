@@ -26,7 +26,7 @@ RSpec.describe "As a user (role 1)", type: :feature do
       expect(current_path).to eq(root_path)
 
       click_link("All Merchants")
-      expect(current_path).to eq(merchant_path)
+      expect(current_path).to eq(merchants_path)
 
       click_link("All Items")
       expect(current_path).to eq(items_path)
@@ -35,7 +35,7 @@ RSpec.describe "As a user (role 1)", type: :feature do
       expect(current_path).to eq(cart_path)
 
       click_link("View My Profile")
-      expect(current_path).to eq(profile_path(default_user.id))
+      expect(current_path).to eq('/profile')
 
       click_link("Logout")
       expect(current_path).to eq(root_path)
@@ -64,7 +64,7 @@ RSpec.describe "As a user (role 1)", type: :feature do
       expect(current_path).to eq(root_path)
 
       click_link("All Merchants")
-      expect(current_path).to eq(merchant_path)
+      expect(current_path).to eq(merchants_path)
 
       click_link("All Items")
       expect(current_path).to eq(items_path)
@@ -73,7 +73,7 @@ RSpec.describe "As a user (role 1)", type: :feature do
       expect(current_path).to eq(cart_path)
 
       click_link("View My Profile")
-      expect(current_path).to eq(profile_path(merchant_user.id))
+      expect(current_path).to eq('/profile')
 
       click_link("Logout")
       expect(current_path).to eq(root_path)
