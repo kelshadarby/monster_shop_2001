@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
   def current_admin?
     current_user && current_user.admin?
   end
-
-  def require_admin
-    render file: 'public/404', status: 404 unless current_admin?
+  
+  def current_merchant?
+    current_user && current_user.merchant?
   end
 
 end
