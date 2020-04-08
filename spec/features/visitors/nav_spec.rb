@@ -32,7 +32,7 @@ RSpec.describe 'As a visitor I have a navbar', type: :feature do
       expect(current_path).to eq(login_path)
     end
     it 'Register' do
-      visit '/register'
+      visit '/'
       click_on 'Register'
       expect(current_path).to eq(register_path)
     end
