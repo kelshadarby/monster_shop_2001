@@ -86,7 +86,7 @@ Be careful to watch out for which stories allow full deletion of content, and re
 ## Deploying to Heroku
 
 ```
-[bg ] done
+[x] done
 
 User Story 1, Deploy your application to Heroku
 
@@ -114,7 +114,7 @@ You will need to set up some basic routing and empty controller actions and empt
 
 
 ```
-[ ] done
+[x] done
 
 User Story 2, Visitor Navigation
 
@@ -132,7 +132,7 @@ Next to the shopping cart link I see a count of the items in my cart
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 3, User Navigation
 
@@ -149,7 +149,7 @@ I also see text that says "Logged in as Mike Dao" (or whatever my name is)
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 4, Merchant Navigation
 
@@ -160,7 +160,7 @@ Plus the following links:
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 5, Admin Navigation
 

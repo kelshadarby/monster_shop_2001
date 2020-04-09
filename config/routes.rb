@@ -52,4 +52,6 @@ Rails.application.routes.draw do
 
   post "/profile", to: "users#create"
   get "/profile", to: "users#show"
+  get "/profile/edit", to: 'users#edit'
+  post "/profile/update", to: 'users#update'
 end
