@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   def new
     @user = User.new()
-    @user.user_detail = UserDetail.new()
   end
 
   def create
@@ -22,17 +21,17 @@ class UsersController < ApplicationController
 
   def show
     user = User.find(current_user.id)
-    flash[:success] = "Logged in as #{user.user_detail.name}"
+    flash[:success] = "Logged in as #{user.name}"
   end
 
   def update
     user = current_user
-    user.user_detail.update(user_params[:user_detail_attributes])
+    user.update(user_params)
     if user.save
       flash[:notice] = "Your information has been updated."
       redirect_to '/profile'
     else
-      flash[:error] = user_detail.errors.full_messages.to_sentence
+      flash[:error] = user.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -43,13 +42,12 @@ class UsersController < ApplicationController
     params.permit(
       :email_address,
       :password,
-      user_detail_attributes: [
-        :name,
-        :street_address,
-        :city,
-        :state,
-        :zip_code
-        ])
+      :name,
+      :street_address,
+      :city,
+      :state,
+      :zip_code
+    )
   end
 
 end

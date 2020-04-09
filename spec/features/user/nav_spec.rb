@@ -6,20 +6,18 @@ RSpec.describe "As a default user (role 1)", type: :feature do
       email_address: "user1@example.com",
       password: "password",
       role: "default",
-      user_detail: UserDetail.new(
-        name: "User 1",
-        street_address: "123 Example St",
-        city: "Userville",
-        state: "State 1",
-        zip_code: "12345"
-      )
+      name: "User 1",
+      street_address: "123 Example St",
+      city: "Userville",
+      state: "State 1",
+      zip_code: "12345"
     )
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
 
     visit "/profile"
 
-    expect(page).to have_content("Logged in as #{default_user.user_detail.name}")
+    expect(page).to have_content("Logged in as #{default_user.name}")
 
     click_link("Home")
     expect(current_path).to eq(root_path)
@@ -44,13 +42,11 @@ RSpec.describe "As a default user (role 1)", type: :feature do
       email_address: "user1@example.com",
       password: "password",
       role: "default",
-      user_detail: UserDetail.new(
-        name: "User 1",
-        street_address: "123 Example St",
-        city: "Userville",
-        state: "State 1",
-        zip_code: "12345"
-      )
+      name: "User 1",
+      street_address: "123 Example St",
+      city: "Userville",
+      state: "State 1",
+      zip_code: "12345"
     )
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)

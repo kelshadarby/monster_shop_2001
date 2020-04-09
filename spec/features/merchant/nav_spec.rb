@@ -6,13 +6,11 @@ RSpec.describe "As a merchant user (role 2)", type: :feature do
       email_address: "user1@example.com",
       password: "password",
       role: "merchant",
-      user_detail: UserDetail.new(
-        name: "User 1",
-        street_address: "123 Example St",
-        city: "Userville",
-        state: "State 1",
-        zip_code: "12345"
-      )
+      name: "User 1",
+      street_address: "123 Example St",
+      city: "Userville",
+      state: "State 1",
+      zip_code: "12345"
     )
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
@@ -45,13 +43,11 @@ RSpec.describe "As a merchant user (role 2)", type: :feature do
       email_address: "user1@example.com",
       password: "password",
       role: "merchant",
-      user_detail: UserDetail.new(
-        name: "User 1",
-        street_address: "123 Example St",
-        city: "Userville",
-        state: "State 1",
-        zip_code: "12345"
-      )
+      name: "User 1",
+      street_address: "123 Example St",
+      city: "Userville",
+      state: "State 1",
+      zip_code: "12345"
     )
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)

@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       render :new
     elsif user.authenticate(params[:password])
       session[:user_id] = user.id
-      flash[:success] = "Logged in as #{user.user_detail.name}"
+      flash[:success] = "Logged in as #{user.name}"
       dynamic_redirect
     else
       flash[:error] = "Invalid Credentials"
