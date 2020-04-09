@@ -24,7 +24,6 @@ RSpec.describe "Items Index Page" do
     end
 
     it "I can see a list of all of the items "do
-
       visit '/items'
 
       within "#item-#{@tire.id}" do
@@ -57,6 +56,57 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@dog_bone.image}']")
       end
     end
+
+    it 'I see an area with statistics' do
+      pull_toy1 = @brian.items.create(name: "Pull Toy1", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy2 = @brian.items.create(name: "Pull Toy2", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy3 = @brian.items.create(name: "Pull Toy3", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy4 = @brian.items.create(name: "Pull Toy4", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy5 = @brian.items.create(name: "Pull Toy5", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      tire1 = @meg.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire2 = @meg.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire3 = @meg.items.create(name: "Gatorskins3", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire4 = @meg.items.create(name: "Gatorskins4", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire5 = @meg.items.create(name: "Gatorskins5", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      order_1 = Order.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_2 = Order.create!(name: 'Meg2', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      item_order_20 = order_1.item_orders.create!(item: tire2, price: tire2.price, quantity: 200)
+      item_order_50 = order_2.item_orders.create!(item: tire5, price: tire5.price, quantity: 50)
+      item_order_40 = order_2.item_orders.create!(item: tire4, price: tire4.price, quantity: 40)
+      item_order_3 = order_2.item_orders.create!(item: pull_toy3, price: pull_toy3.price, quantity: 30)
+      item_order_3 = order_1.item_orders.create!(item: pull_toy3, price: pull_toy3.price, quantity: 3)
+      item_order_30 = order_1.item_orders.create!(item: tire3, price: tire3.price, quantity: 30)
+      item_order_2 = order_1.item_orders.create!(item: pull_toy2, price: pull_toy2.price, quantity: 20)
+      item_order_10 = order_1.item_orders.create!(item: tire1, price: tire1.price, quantity: 10)
+      item_order_5 = order_2.item_orders.create!(item: pull_toy5, price: pull_toy5.price, quantity: 5)
+      item_order_4 = order_2.item_orders.create!(item: pull_toy4, price: pull_toy4.price, quantity: 4)
+      item_order_1 = order_1.item_orders.create!(item: pull_toy1, price: pull_toy1.price, quantity: 2)
+
+      visit '/items'
+
+      within "article.popular-items" do
+        expect(tire2.name).to appear_before(tire5.name, only_text: true)
+        expect(tire5.name).to appear_before(tire4.name, only_text: true)
+        expect(tire4.name).to appear_before(pull_toy3.name, only_text: true)
+        expect(pull_toy3.name).to appear_before(tire3.name, only_text: true)
+
+        within "#item-#{tire2.id}" do
+          expect(page).to have_content("Purchased 200 times")
+        end
+      end
+
+      within "article.unpopular-items" do
+        expect(pull_toy1.name).to appear_before(pull_toy4.name, only_text: true)
+        expect(pull_toy4.name).to appear_before(pull_toy5.name, only_text: true)
+        expect(pull_toy5.name).to appear_before(tire1.name, only_text: true)
+        expect(tire1.name).to appear_before(pull_toy2.name, only_text: true)
+
+        within "#item-#{pull_toy1.id}" do
+          expect(page).to have_content("Purchased 2 times")
+        end
+      end
+    end
+      
     it "I can click on all images" do
       visit '/items'
 
