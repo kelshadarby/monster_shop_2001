@@ -1,9 +1,9 @@
 <h1>User Profile</h1>
 <p>Name: <%=current_user.user_detail.name%></p>
 <p>Email: <%=current_user.email_address%></p>
-<p>Name: <%=current_user.user_detail.street_address%></p>
-<p>Name: <%=current_user.user_detail.state%></p>
-<p>Name: <%=current_user.user_detail.city%></p>
-<p>Name: <%=current_user.user_detail.zip_code%></p>
+<p>Address: <%=current_user.user_detail.street_address%></p>
+<p>City: <%=current_user.user_detail.city%></p>
+<p>State: <%=current_user.user_detail.state%></p>
+<p>Zip: <%=current_user.user_detail.zip_code%></p>
 
 <%= link_to "Edit Profile", "/profile/edit"%>
