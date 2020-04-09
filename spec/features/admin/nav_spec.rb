@@ -8,7 +8,7 @@ RSpec.describe 'As a Admin', type: :feature do
         email_address: "user1@example.com",
         role: 3,
         password: "password",
-        user_detail: UserDetail.new(        
+        user_detail: UserDetail.new(
           name: "User 1",
           street_address: "123 Example St",
           city: "Userville",
@@ -92,5 +92,5 @@ RSpec.describe 'As a Admin', type: :feature do
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
   end
-  
+
 end
