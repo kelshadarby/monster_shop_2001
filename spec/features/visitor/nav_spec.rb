@@ -1,41 +1,53 @@
 require 'spec_helper'
 require 'rails_helper'
 
-RSpec.describe 'As a visitor I have a navbar', type: :feature do
-  describe 'where I can click on' do
-    it 'home' do
-      visit '/register'
-      click_on 'Home'
-      expect(current_path).to eq(root_path)
-    end
-    it 'All Merchants' do
-      visit '/'
+RSpec.describe 'As a visitor', type: :feature do
+  describe 'I have a navbar' do
+    it 'where I can click on' do
+      visit root_path
+      
       click_on 'All Merchants'
       expect(current_path).to eq(merchants_path)
-    end
+      
+      click_on 'Home'
+      expect(current_path).to eq(root_path)
 
-    it 'All Items' do
-      visit '/'
       click_on 'All Items'
       expect(current_path).to eq(items_path)
-    end
 
-    it 'Cart' do
-      visit '/'
       click_on 'Cart'
       expect(current_path).to eq(cart_path)
-    end
 
-    it 'Login' do
-      visit '/'
       click_on 'Login'
       expect(current_path).to eq(login_path)
-    end
-    it 'Register' do
-      visit '/'
+
       click_on 'Register'
       expect(current_path).to eq(register_path)
     end
+
+    it 'I can see a cart indicator' do
+      visit root_path
+      within 'nav' do
+        expect(page).to have_content("Cart: 0")
+      end
+      
+      visit items_path
+      within 'nav' do
+        expect(page).to have_content("Cart: 0")
+      end
+    end
   end
+
+  describe 'I am not authorized to visit' do
+    it '/admin routes' do
+    visit admin_dashboard_path
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+    end
   
+    it '/merchant routes' do
+      visit merchant_dashboard_path
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+    end
+  end
+
 end
