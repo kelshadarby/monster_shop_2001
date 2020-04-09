@@ -24,7 +24,6 @@ RSpec.describe "Items Index Page" do
     end
 
     it "I can see a list of all of the items "do
-
       visit '/items'
 
       within "#item-#{@tire.id}" do
@@ -83,7 +82,6 @@ RSpec.describe "Items Index Page" do
       item_order_4 = order_2.item_orders.create!(item: pull_toy4, price: pull_toy4.price, quantity: 4)
       item_order_1 = order_1.item_orders.create!(item: pull_toy1, price: pull_toy1.price, quantity: 2)
 
-
       visit '/items'
 
       within "article.popular-items" do
@@ -95,7 +93,6 @@ RSpec.describe "Items Index Page" do
         within "#item-#{tire2.id}" do
           expect(page).to have_content("Purchased 200 times")
         end
-
       end
 
       within "article.unpopular-items" do
@@ -108,6 +105,23 @@ RSpec.describe "Items Index Page" do
           expect(page).to have_content("Purchased 2 times")
         end
       end
+    end
+      
+    it "I can click on all images" do
+      visit '/items'
+
+      find("a#item-image-#{@tire.id}").click
+      expect(current_path).to eq("/items/#{@tire.id}")
+
+      visit '/items'
+
+      find("a#item-image-#{@pull_toy.id}").click
+      expect(current_path).to eq("/items/#{@pull_toy.id}")
+
+      visit '/items'
+
+      find("a#item-image-#{@dog_bone.id}").click
+      expect(current_path).to eq("/items/#{@dog_bone.id}")
     end
   end
 end
