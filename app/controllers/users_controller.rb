@@ -26,11 +26,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    user_detail = UserDetail.find(current_user.user_detail.id)
-    user_detail.update(user_params[:user_detail_attributes])
-    binding.pry
-    if user_detail.save
-      flash[:success] = "Your information has been updated."
+    user = current_user
+    user.user_detail.update(user_params[:user_detail_attributes])
+    if user.save
+      flash[:notice] = "Your information has been updated."
       redirect_to '/profile'
     else
       flash[:error] = user_detail.errors.full_messages.to_sentence
