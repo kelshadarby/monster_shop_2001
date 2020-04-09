@@ -1,0 +1,16 @@
+
+<%= form_tag '/profile/update', method: :post do |f| %>
+  <%= label_tag :name, "Name" %>
+  <%= text_field_tag :name, "#{@user.user_detail.name}" %>
+  <%= label_tag :street_address, "Street Address" %>
+  <%= text_field_tag :street_address, "#{@user.user_detail.street_address}" %>
+  <%= label_tag :city %>
+  <%= text_field_tag :city, "#{@user.user_detail.city}" %>
+  <%= label_tag :state %>
+  <%= text_field_tag :state, "#{@user.user_detail.state}" %>
+  <%= label_tag :zip_code, "Zip Code" %>
+  <%= text_field_tag :zip_code, "#{@user.user_detail.zip_code}" %>
+  <%= label_tag :email_address, "Email Address" %>
+  <%= text_field_tag :email_address, "#{@user.email_address}" %>
+<%= submit_tag "Update Info" %>
+<% end %>

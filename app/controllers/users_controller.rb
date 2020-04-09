@@ -16,9 +16,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(current_user.id)
+  end
+
   def show
     user = User.find(current_user.id)
     flash[:success] = "Logged in as #{user.user_detail.name}"
+  end
+
+  def update
+    user = User.find(current_user.id)
+    binding.pry
   end
 
   private
