@@ -6,8 +6,11 @@ RSpec.describe User, type: :model do
     it { expect(subject).to validate_uniqueness_of(:email_address).with_message("Email is already in use.") }
     it { should validate_presence_of :password }
     it { should validate_presence_of :role}
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :street_address }
+    it { should validate_presence_of :city }
+    it { should validate_presence_of :state }
+    it { should validate_presence_of :zip_code }
   end
-  describe "relationships" do
-    it { should have_one :user_detail }
-  end
+
 end

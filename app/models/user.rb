@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   attr_accessor :password_confirmation
 
-  validates_presence_of :email_address
+  validates_presence_of :email_address, :name, :street_address, :city, :state, :zip_code
   validates :email_address, uniqueness: {message: "Email is already in use."}
-  # validates_presence_of :password, require: true
+
   validates_confirmation_of :password
   validates_presence_of :role
 

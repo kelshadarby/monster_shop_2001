@@ -8,13 +8,11 @@ RSpec.describe 'As a Admin', type: :feature do
         email_address: "user1@example.com",
         role: 3,
         password: "password",
-        user_detail: UserDetail.new(
-          name: "User 1",
-          street_address: "123 Example St",
-          city: "Userville",
-          state: "State 1",
-          zip_code: "12345"
-        )
+        name: "User 1",
+        street_address: "123 Example St",
+        city: "Userville",
+        state: "State 1",
+        zip_code: "12345"
       )
       user1.save
       
@@ -56,14 +54,12 @@ RSpec.describe 'As a Admin', type: :feature do
       user1 = User.new(
         email_address: "user1@example.com",
         role: 3,
-        password: "password",
-        user_detail: UserDetail.new(        
-          name: "User 1",
-          street_address: "123 Example St",
-          city: "Userville",
-          state: "State 1",
-          zip_code: "12345"
-        )
+        password: "password",       
+        name: "User 1",
+        street_address: "123 Example St",
+        city: "Userville",
+        state: "State 1",
+        zip_code: "12345"
       )
       user1.save
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user1)
@@ -76,14 +72,12 @@ RSpec.describe 'As a Admin', type: :feature do
       user1 = User.new(
         email_address: "user1@example.com",
         role: 3,
-        password: "password",
-        user_detail: UserDetail.new(        
-          name: "User 1",
-          street_address: "123 Example St",
-          city: "Userville",
-          state: "State 1",
-          zip_code: "12345"
-        )
+        password: "password",    
+        name: "User 1",
+        street_address: "123 Example St",
+        city: "Userville",
+        state: "State 1",
+        zip_code: "12345"
       )
       user1.save
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user1)
