@@ -8,7 +8,7 @@ RSpec.describe 'As a Admin I have a navbar', type: :feature do
         email_address: "user1@example.com",
         role: 3,
         password: "password",
-        user_detail: UserDetail.new(        
+        user_detail: UserDetail.new(
           name: "User 1",
           street_address: "123 Example St",
           city: "Userville",
@@ -83,5 +83,5 @@ RSpec.describe 'As a Admin I have a navbar', type: :feature do
       User.destroy_all
     end
   end
-  
+
 end
