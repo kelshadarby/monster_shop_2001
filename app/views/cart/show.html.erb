@@ -30,7 +30,10 @@
       </td>
       <td>
         <center>
-          <p><%=quantity%></p>
+          <p id="item-quantity-<%= item.id %>">
+            <%=quantity%>
+            <%= link_to "+", update_cart_path(item_id: item.id, quantity: :add), method: :patch %>
+          </p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>
