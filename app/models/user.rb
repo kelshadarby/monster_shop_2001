@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   validates_presence_of :email_address
   validates :email_address, uniqueness: {message: "Email is already in use."}
-  validates_presence_of :password, require: true
+  # validates_presence_of :password, require: true
   validates_confirmation_of :password
   validates_presence_of :role
 
