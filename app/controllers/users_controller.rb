@@ -27,6 +27,7 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(current_user.id)
+    user.user_detail.update(user_params)
     binding.pry
   end
 
