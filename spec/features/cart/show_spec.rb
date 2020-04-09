@@ -55,8 +55,30 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content("Total: $124")
       end
+      it "I can increment the count of items" do
+      visit '/cart'
+
+        within "#item-quantity-#{@tire.id}" do
+          2.times do
+            click_link "+"
+          end
+        expect(page).to_not have_content("1")
+        expect(page).to have_content("3")
+        end
+      end
+      it "I cannot increment the count of items beyond the item's inventory size" do
+      visit '/cart'
+
+      within "#item-quantity-#{@tire.id}" do
+        15.times do
+          click_link "+"
+        end
+        expect(page).to have_content("12")
+        expect(page).to_not have_content("16")
+      end
     end
   end
+end
   describe "When I haven't added anything to my cart" do
     describe "and visit my cart show page" do
       it "I see a message saying my cart is empty" do
@@ -64,12 +86,10 @@ RSpec.describe 'Cart show' do
         expect(page).to_not have_css(".cart-items")
         expect(page).to have_content("Cart is currently empty")
       end
-
       it "I do NOT see the link to empty my cart" do
         visit '/cart'
         expect(page).to_not have_link("Empty Cart")
       end
-
     end
   end
 end

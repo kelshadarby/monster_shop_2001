@@ -12,6 +12,18 @@ class CartController < ApplicationController
     @items = cart.items
   end
 
+  def update
+    item = Item.find(params[:item_id])
+
+    if params[:quantity] == "add" && (cart.contents[item.id.to_s] + 1) <= item.inventory
+      cart.add_item(params[:item_id].to_s)
+    elsif params[:quanity] == "subtract"
+      cart.subtract_item(params[:item_id].to_s)
+    end
+    
+    redirect_to '/cart'
+  end
+
   def empty
     session.delete(:cart)
     redirect_to '/cart'
