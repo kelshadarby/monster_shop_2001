@@ -25,12 +25,20 @@ RSpec.describe "As a signed in user, when I visit /profile", type: :feature do
 
       fill_in "user_detail_attributes[name]", with: "George"
       fill_in "user_detail_attributes[street_address]", with: "123 fake street"
-      fill_in "user_detail_attributes[city]", with: "denver"
+      fill_in "user_detail_attributes[city]", with: "Denver"
       fill_in "user_detail_attributes[state]", with: "CO"
       fill_in "user_detail_attributes[zip_code]", with: "80205"
 
       click_button "Update Info"
-binding.pry
-      expect(user1.user_detail.name).to eq("George")
+
+      expect(current_path).to eq("/profile")
+      expect(page).to have_content("Your information has been updated.")
+      expect(page).to have_content("George")
+      expect(page).to have_content("123 fake street")
+      expect(page).to have_content("Denver")
+      expect(page).to have_content("CO")
+      expect(page).to have_content("80205")
+      expect(page).to_not have_content("123 Example St")
+      expect(page).to_not have_content("User 1")
     end
 end
