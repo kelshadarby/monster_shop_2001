@@ -57,5 +57,32 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@dog_bone.image}']")
       end
     end
+
+    it 'I see an area with statistics' do
+      pull_toy1 = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy2 = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy3 = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy4 = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      pull_toy5 = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
+      tire1 = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire2 = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire3 = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire4 = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+      tire5 = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
+
+      within "popular-items" do
+        expect(tire1).to appear_before(tire2, only_text: true)
+        expect(tire2).to appear_before(tire3, only_text: true)
+        expect(tire3).to appear_before(tire4, only_text: true)
+        expect(tire4).to appear_before(tire5, only_text: true)
+      end
+
+      within "unpopular-items" do
+        expect(pull_toy1).to appear_before(pull_toy2, only_text: true)
+        expect(pull_toy2).to appear_before(pull_toy3, only_text: true)
+        expect(pull_toy3).to appear_before(pull_toy4, only_text: true)
+        expect(pull_toy4).to appear_before(pull_toy5, only_text: true)
+      end
+    end
   end
 end
