@@ -57,5 +57,21 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@dog_bone.image}']")
       end
     end
+    it "I can click on all images" do
+      visit '/items'
+
+      find("a#item-image-#{@tire.id}").click
+      expect(current_path).to eq("/items/#{@tire.id}")
+
+      visit '/items'
+
+      find("a#item-image-#{@pull_toy.id}").click
+      expect(current_path).to eq("/items/#{@pull_toy.id}")
+
+      visit '/items'
+
+      find("a#item-image-#{@dog_bone.id}").click
+      expect(current_path).to eq("/items/#{@dog_bone.id}")
+    end
   end
 end
