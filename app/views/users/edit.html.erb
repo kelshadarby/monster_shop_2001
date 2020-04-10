@@ -1,5 +1,5 @@
 
-<%= form_tag '/profile/update', method: :post do |f| %>
+<%= form_tag '/profile/update', method: :patch do |f| %>
   <%= label_tag :name, "Name" %>
   <%= text_field_tag :name, "#{@user.name}" %>
   <%= label_tag :street_address, "Street Address" %>
