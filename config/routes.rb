@@ -53,5 +53,7 @@ Rails.application.routes.draw do
   post "/profile", to: "users#create"
   get "/profile", to: "users#show"
   get "/profile/edit", to: 'users#edit'
-  post "/profile/update", to: 'users#update'
+  patch "/profile/update", to: 'users#update'
+  get "/profile/change_password", to: "users#change_password"
+  patch "/profile/update_password", to: "users#update_password"
 end

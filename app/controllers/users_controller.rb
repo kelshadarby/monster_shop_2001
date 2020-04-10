@@ -24,6 +24,21 @@ class UsersController < ApplicationController
     flash[:success] = "Logged in as #{user.name}"
   end
 
+  def change_password
+  end
+
+  def update_password
+    user = current_user
+    user.update(password_params)
+    if user.save
+      flash[:notice] = "Password has been changed."
+      redirect_to '/profile'
+    else
+      flash[:error] = "Passwords Must Match"
+      redirect_to '/profile/change_password'
+    end
+  end
+
   def update
     @user = current_user
     @user.update(user_params)
@@ -48,6 +63,10 @@ class UsersController < ApplicationController
       :state,
       :zip_code
     )
+  end
+
+  def password_params
+    params.permit(:password, :password_confirmation)
   end
 
 end
