@@ -11,4 +11,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :orders
+
+  def has_orders?
+    orders.any?
+  end
 end
