@@ -26,6 +26,19 @@ RSpec.describe "As a visitor" do
     end
 
     it "I can't delete a merchant that has orders" do
+      default_user = User.create(
+      email_address: "user1@example.com",
+      password: "password",
+      role: "default",
+      name: "User 1",
+      street_address: "123 Example St",
+      city: "Userville",
+      state: "State 1",
+      zip_code: "12345"
+    )
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+
       mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       brian = Merchant.create(name: "Brian's Dog Shop", address: '123 Dog Rd.', city: 'Denver', state: 'CO', zip: 80204)

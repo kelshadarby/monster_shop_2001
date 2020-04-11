@@ -58,6 +58,16 @@ RSpec.describe "Items Index Page" do
     end
 
     it 'I see an area with statistics' do
+      user = User.create!(
+        email_address: 'user1@example.com',
+        password: 'password',
+        role: 'default',
+        name: 'User 1',
+        street_address: '123 Example St',
+        city: 'Userville',
+        state: 'State 1',
+        zip_code: '12345'
+      )
       pull_toy1 = @brian.items.create(name: "Pull Toy1", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
       pull_toy2 = @brian.items.create(name: "Pull Toy2", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
       pull_toy3 = @brian.items.create(name: "Pull Toy3", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
@@ -68,8 +78,8 @@ RSpec.describe "Items Index Page" do
       tire3 = @meg.items.create(name: "Gatorskins3", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
       tire4 = @meg.items.create(name: "Gatorskins4", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
       tire5 = @meg.items.create(name: "Gatorskins5", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 12)
-      order_1 = Order.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order_2 = Order.create!(name: 'Meg2', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_1 = user.orders.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_2 = user.orders.create!(name: 'Meg2', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
       item_order_20 = order_1.item_orders.create!(item: tire2, price: tire2.price, quantity: 200)
       item_order_50 = order_2.item_orders.create!(item: tire5, price: tire5.price, quantity: 50)
       item_order_40 = order_2.item_orders.create!(item: tire4, price: tire4.price, quantity: 40)
@@ -106,7 +116,7 @@ RSpec.describe "Items Index Page" do
         end
       end
     end
-      
+
     it "I can click on all images" do
       visit '/items'
 
