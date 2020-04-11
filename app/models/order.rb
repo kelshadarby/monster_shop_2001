@@ -8,4 +8,9 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+  
+  def status
+    "pending" if item_orders.where('fulfilled = ?', false).any?
+  end
+
 end
