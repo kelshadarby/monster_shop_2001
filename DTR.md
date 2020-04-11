@@ -104,6 +104,7 @@ __How will we communicate about our emotional and mental well-being with each ot
 
 _Brian_
 - Sessions
+- AR joins
 
 _Fred_
 - Authorization
@@ -115,6 +116,7 @@ _Kelsha_
 - Joins
 - ActiveRecord
 - Sessions
+- Migrations / Table Modifications
 
 ### Workload Expectations (What features do we each want to work on?):
 
@@ -156,5 +158,6 @@ _Kelsha_
 - Go through project and draw out plan
 - Break up user stories
 - Build database and tables
+descri
 
 ### Addition
