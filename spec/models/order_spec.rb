@@ -43,6 +43,11 @@ describe Order, type: :model do
       expect(@order_1.grandtotal).to eq(230)
     end
 
+    it 'status' do
+      # status is pending if any item is not fullfilled
+      expect(@order_1.status).to eq("pending")
+    end
+
     after(:all) do
       User.destroy_all
     end
