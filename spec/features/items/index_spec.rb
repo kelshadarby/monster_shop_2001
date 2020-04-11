@@ -116,7 +116,7 @@ RSpec.describe "Items Index Page" do
         end
       end
     end
-      
+
     it "I can click on all images" do
       visit '/items'
 

@@ -17,10 +17,10 @@ class CartController < ApplicationController
 
     if params[:quantity] == "add" && (cart.contents[item.id.to_s] + 1) <= item.inventory
       cart.add_item(params[:item_id].to_s)
-    elsif params[:quanity] == "subtract"
+    elsif params[:quantity] == "subtract"
       cart.subtract_item(params[:item_id].to_s)
     end
-    
+
     redirect_to '/cart'
   end
 

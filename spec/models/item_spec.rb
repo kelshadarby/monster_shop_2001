@@ -72,7 +72,7 @@ describe Item, type: :model do
         zip_code: '12345'
       )
     end
-    
+
     it 'most_popular' do
        @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
@@ -90,7 +90,7 @@ describe Item, type: :model do
       item_order_5 = order_2.item_orders.create!(item: tire5, price: tire5.price, quantity: 5)
       item_order_4 = order_2.item_orders.create!(item: tire4, price: tire4.price, quantity: 4)
       item_order_3 = order_1.item_orders.create!(item: tire3, price: tire3.price, quantity: 3)
-      
+
       expect(Item.most_popular(5)).to eq([tire2, tire1, tire6, tire5, tire4])
     end
 
@@ -111,7 +111,7 @@ describe Item, type: :model do
       item_order_5 = order_2.item_orders.create!(item: tire5, price: tire5.price, quantity: 5)
       item_order_4 = order_2.item_orders.create!(item: tire4, price: tire4.price, quantity: 4)
       item_order_3 = order_1.item_orders.create!(item: tire3, price: tire3.price, quantity: 3)
-      
+
       expect(Item.least_popular(5)).to eq([tire3, tire4, tire5, tire6, tire1])
     end
   end

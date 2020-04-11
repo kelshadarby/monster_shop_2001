@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Cart show' do
   describe 'When I have added items to my cart' do
     describe 'and visit my cart path' do
+      
       before(:each) do
         @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
         @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -55,41 +56,73 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content("Total: $124")
       end
+
       it "I can increment the count of items" do
-      visit '/cart'
+        visit '/cart'
 
         within "#item-quantity-#{@tire.id}" do
           2.times do
             click_link "+"
           end
-        expect(page).to_not have_content("1")
-        expect(page).to have_content("3")
+          expect(page).to_not have_content("1")
+          expect(page).to have_content("3")
         end
       end
-      it "I cannot increment the count of items beyond the item's inventory size" do
-      visit '/cart'
 
-      within "#item-quantity-#{@tire.id}" do
-        15.times do
-          click_link "+"
+      it "I cannot increment the count of items beyond the item's inventory size" do
+        visit '/cart'
+
+        within "#item-quantity-#{@tire.id}" do
+          15.times do
+            click_link "+"
+          end
+          expect(page).to have_content("12")
+          expect(page).to_not have_content("16")
         end
-        expect(page).to have_content("12")
-        expect(page).to_not have_content("16")
       end
+
+      it "I can decrement the quantity of an item in my cart" do
+        visit '/cart'
+
+        within "#item-quantity-#{@tire.id}" do
+          click_link "+"
+          expect(page).to have_content("2")
+        end
+
+        within "#item-quantity-#{@tire.id}" do
+          click_link "-"
+          expect(page).to have_content("1")
+          expect(page).to_not have_content("2")
+        end
+      end
+
+      it "I can remove an item by decrementing the quantity to 0" do
+        visit '/cart'
+
+        within "#item-quantity-#{@paper.id}" do
+          expect(page).to have_content("1")
+          click_link "-"
+        end
+        expect(page).to_not have_css("#item-quantity-#{@paper.id}")
+      end
+
     end
   end
-end
+
   describe "When I haven't added anything to my cart" do
     describe "and visit my cart show page" do
+
       it "I see a message saying my cart is empty" do
         visit '/cart'
         expect(page).to_not have_css(".cart-items")
         expect(page).to have_content("Cart is currently empty")
       end
+
       it "I do NOT see the link to empty my cart" do
         visit '/cart'
         expect(page).to_not have_link("Empty Cart")
       end
+
     end
   end
 end

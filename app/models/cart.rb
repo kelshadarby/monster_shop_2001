@@ -11,7 +11,16 @@ class Cart
   end
 
   def subtract_item(item)
-    @contents[item] -= 1
+
+    if @contents[item] > 1
+      @contents[item] -= 1
+    else
+      remove_item(item)
+    end
+  end
+
+  def remove_item(item)
+    @contents.delete(item)
   end
 
   def total_items
