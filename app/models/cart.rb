@@ -21,15 +21,6 @@ class Cart
 
   def remove_item(item)
     @contents.delete(item)
-    if @contents[item] > 1
-      @contents[item] -= 1
-    else
-      remove_item(item)
-    end
-  end
-
-  def remove_item(item)
-    @contents.delete(item)
   end
 
   def total_items
