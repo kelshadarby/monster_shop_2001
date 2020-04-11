@@ -31,9 +31,9 @@
       <td>
         <center>
           <p id="item-quantity-<%= item.id %>">
-            <%= link_to "-", update_cart_path(item_id: item.id, quantity: :subtract), method: :patch %>
+            <%= link_to "-", update_cart_path(item.id, quantity: :subtract), method: :patch %>
             <%=quantity%>
-            <%= link_to "+", update_cart_path(item_id: item.id, quantity: :add), method: :patch %>
+            <%= link_to "+", update_cart_path(item.id, quantity: :add), method: :patch %>
           </p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
