@@ -48,4 +48,48 @@ describe Item, type: :model do
       expect(@chain.no_orders?).to eq(false)
     end
   end
+
+  describe "class methods" do
+    it 'most_popular' do
+       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
+      tire2 = @bike_shop.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 2)
+      tire3 = @bike_shop.items.create(name: "Gatorskins3", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 3)
+      tire4 = @bike_shop.items.create(name: "Gatorskins4", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 4)
+      tire5 = @bike_shop.items.create(name: "Gatorskins5", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 5)
+      tire6 = @bike_shop.items.create(name: "Gatorskins6", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 6)
+      order_1 = Order.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_2 = Order.create!(name: 'Meg2', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      item_order_2 = order_1.item_orders.create!(item: tire2, price: tire2.price, quantity: 20)
+      item_order_7 = order_2.item_orders.create!(item: tire1, price: tire1.price, quantity: 10)
+      item_order_1 = order_1.item_orders.create!(item: tire1, price: tire1.price, quantity: 1)
+      item_order_6 = order_2.item_orders.create!(item: tire6, price: tire1.price, quantity: 6)
+      item_order_5 = order_2.item_orders.create!(item: tire5, price: tire5.price, quantity: 5)
+      item_order_4 = order_2.item_orders.create!(item: tire4, price: tire4.price, quantity: 4)
+      item_order_3 = order_1.item_orders.create!(item: tire3, price: tire3.price, quantity: 3)
+      
+      expect(Item.most_popular(5)).to eq([tire2, tire1, tire6, tire5, tire4])
+    end
+
+    it 'least_popular' do
+       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
+      tire2 = @bike_shop.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 2)
+      tire3 = @bike_shop.items.create(name: "Gatorskins3", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 3)
+      tire4 = @bike_shop.items.create(name: "Gatorskins4", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 4)
+      tire5 = @bike_shop.items.create(name: "Gatorskins5", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 5)
+      tire6 = @bike_shop.items.create(name: "Gatorskins6", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 6)
+      order_1 = Order.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_2 = Order.create!(name: 'Meg2', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      item_order_2 = order_1.item_orders.create!(item: tire2, price: tire2.price, quantity: 20)
+      item_order_7 = order_2.item_orders.create!(item: tire1, price: tire1.price, quantity: 10)
+      item_order_1 = order_1.item_orders.create!(item: tire1, price: tire1.price, quantity: 1)
+      item_order_6 = order_2.item_orders.create!(item: tire6, price: tire6.price, quantity: 6)
+      item_order_5 = order_2.item_orders.create!(item: tire5, price: tire5.price, quantity: 5)
+      item_order_4 = order_2.item_orders.create!(item: tire4, price: tire4.price, quantity: 4)
+      item_order_3 = order_1.item_orders.create!(item: tire3, price: tire3.price, quantity: 3)
+      
+      expect(Item.least_popular(5)).to eq([tire3, tire4, tire5, tire6, tire1])
+    end
+  end
 end

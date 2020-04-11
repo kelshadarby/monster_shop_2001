@@ -63,16 +63,16 @@ Students will be put into 3 or 4 person groups to complete the project.\n
 ## Timeframe
 The following is an anticipated timeline of how these stories should be completed in order to be finished by 4/16/20 at 6pm.
 
-* Tuesday: Story 1 && Story 10 - Story 12
-* Wednesday: Story 2 - Story 9, Story 13 - Story 16
-* Thursday: Story 17 - Story 22
-* Friday: Story 23 - Story 26
-* Saturday: Story 27 - Story 31
-* Sunday: Story 32 - Story 37
-* Monday: Story 38 - Story 41
-* Tuesday: Story 42 - Story 48
-* Wednesday: Story 49 - Story 51
-* Thursday: Story 52 - 54
+* Monday: Story 1 && Story 10 - Story 12
+* Tuesday: Story 2 - Story 9, Story 13 - Story 16
+* Wednesday: Story 17 - Story 22
+* Thursday: Story 23 - Story 26
+* Friday: Story 27 - Story 31
+* Saturday: Story 32 - Story 37
+* Sunday: Story 38 - Story 41
+* Monday: Story 42 - Story 48
+* Tuesday: Story 49 - Story 51
+* Wednesday: Story 52 - 54
 
 
 ## Not Everything can be FULLY Deleted
@@ -86,7 +86,7 @@ Be careful to watch out for which stories allow full deletion of content, and re
 ## Deploying to Heroku
 
 ```
-[ ] done
+[x] done
 
 User Story 1, Deploy your application to Heroku
 
@@ -114,7 +114,7 @@ You will need to set up some basic routing and empty controller actions and empt
 
 
 ```
-[ ] done
+[x] done
 
 User Story 2, Visitor Navigation
 
@@ -132,7 +132,7 @@ Next to the shopping cart link I see a count of the items in my cart
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 3, User Navigation
 
@@ -149,7 +149,7 @@ I also see text that says "Logged in as Mike Dao" (or whatever my name is)
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 4, Merchant Navigation
 
@@ -160,7 +160,7 @@ Plus the following links:
 ```
 
 ```
-[ ] done
+[x] done
 
 User Story 5, Admin Navigation
 

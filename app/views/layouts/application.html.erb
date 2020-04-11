@@ -10,9 +10,20 @@
 
   <body>
     <nav class = "topnav">
+      <%= link_to "Home", "/" %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <%= link_to "Cart: #{cart.total_items}", "/cart" if !current_admin? %>
+      <%= link_to "Register", register_path if !current_user %>
+      <%= link_to "Login", login_path if !current_user %>
+      <%= link_to "Profile", profile_path if current_user %>
+      
+      <%= link_to "Dashboard", admin_dashboard_path if current_admin? %>
+      <%= link_to "Users", admin_users_path if current_admin? %>
+  
+      <%= link_to "Dashboard", merchant_dashboard_path if current_user && current_user.role == "merchant" %>
+  
+      <%= link_to "Logout", logout_path, method: :delete if current_user %>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">

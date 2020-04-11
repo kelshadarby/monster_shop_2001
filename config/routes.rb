@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root "welcome#index"
+
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
+  namespace :admin do
+    get '/dashboard', to: "dashboard#index"
+    get '/users', to: "users#index"
+  end
+
+  namespace :merchant do
+    get '/dashboard', to: "dashboard#index"
+  end
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
@@ -27,10 +40,20 @@ Rails.application.routes.draw do
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"
+  patch "/cart/:item_id", to: "cart#update", as: :update_cart
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
+
+  get "/register", to: "users#new"
+
+  post "/profile", to: "users#create"
+  get "/profile", to: "users#show"
+  get "/profile/edit", to: 'users#edit'
+  patch "/profile/update", to: 'users#update'
+  get "/profile/change_password", to: "users#change_password"
+  patch "/profile/update_password", to: "users#update_password"
 end
