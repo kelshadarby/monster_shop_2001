@@ -10,7 +10,7 @@ class Order <ApplicationRecord
   end
   
   def status
-    "pending" if item_orders.where('fulfilled = ?', false).any?
+    "pending" if item_orders.where('status = ?', "unfulfilled").any?
   end
 
 end
