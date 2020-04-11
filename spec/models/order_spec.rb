@@ -46,6 +46,12 @@ describe Order, type: :model do
     it 'status' do
       # status is pending if any item is not fullfilled
       expect(@order_1.status).to eq("pending")
+
+      order_2 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, status: "fufilled")
+ 
+      expect(order_2.status).to eq("packaged")
+
     end
 
     after(:all) do

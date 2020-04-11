@@ -9,8 +9,14 @@ class Order <ApplicationRecord
     item_orders.sum('price * quantity')
   end
   
-  def status
-    "pending" if item_orders.where('status = ?', "unfulfilled").any?
+  def status 
+    return "canceled" if item_orders.where('status = ?', "canceled").any?
+    if item_orders.where('status = ?', "unfulfilled").any?
+      "pending"
+    else
+      "packaged"
+    end
+  
   end
 
 end
