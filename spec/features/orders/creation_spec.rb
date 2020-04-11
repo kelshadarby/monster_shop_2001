@@ -9,6 +9,7 @@
 RSpec.describe("Order Creation") do
   describe "When I check out from my cart" do
     before(:each) do
+      User.destroy_all
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
@@ -29,6 +30,19 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
+      default_user = User.create(
+        email_address: "user1@example.com",
+        password: "password",
+        role: "default",
+        name: "User 1",
+        street_address: "123 Example St",
+        city: "Userville",
+        state: "State 1",
+        zip_code: "12345"
+      )
+
+     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+
       name = "Bert"
       address = "123 Sesame St."
       city = "NYC"
@@ -89,6 +103,19 @@ RSpec.describe("Order Creation") do
     end
 
     it 'i cant create order if info not filled out' do
+      default_user = User.create(
+        email_address: "user1@example.com",
+        password: "password",
+        role: "default",
+        name: "User 1",
+        street_address: "123 Example St",
+        city: "Userville",
+        state: "State 1",
+        zip_code: "12345"
+      ) 
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+
       name = ""
       address = "123 Sesame St."
       city = "NYC"
@@ -108,5 +135,66 @@ RSpec.describe("Order Creation") do
     end
 
 
+  end
+  describe 'When I am logged in and create an order' do
+    before(:all) do
+      @user = User.create(
+        email_address: 'user1@example.com',
+        password: 'password',
+        role: 'default',
+        name: 'User 1',
+        street_address: '123 Example St',
+        city: 'Userville',
+        state: 'State 1',
+        zip_code: '12345'
+      )
+      visit login_path
+      fill_in "Email Address", with: @user.email_address
+      fill_in "Password", with: @user.password
+      click_button "Login"
+    end 
+
+    before(:each) do
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+
+      @tire = @meg.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
+      @paper = @mike.items.create(name: 'Lined Paper', description: 'Great for writing on!', price: 20, image: 'https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png', inventory: 3)
+      @pencil = @mike.items.create(name: 'Yellow Pencil', description: 'You can write on paper with it!', price: 2, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
+
+      visit "/items/#{@paper.id}"
+      click_on 'Add To Cart'
+      visit "/items/#{@tire.id}"
+      click_on 'Add To Cart'
+      visit "/items/#{@pencil.id}"
+      click_on 'Add To Cart'
+      @items_in_cart = [@paper, @tire, @pencil]
+      visit cart_path
+      click_on 'Checkout'
+
+      within 'section.shipping-details' do
+        fill_in :name, with: @user.name
+        fill_in :address, with: @user.street_address
+        fill_in :city, with: @user.city
+        fill_in :state, with: @user.state
+        fill_in :zip, with: @user.zip_code
+      end
+
+      click_button "Create Order" 
+    end
+
+    it 'the order is asscociated with my user account' do
+      new_order = Order.last
+
+      expect(new_order.status).to eq("pending")
+      expect(new_order.user.id).to eq(@user.id)
+
+    end
+
+    after(:all) do
+      User.destroy_all
+      Merchant.destroy_all
+      Item.destroy_all
+    end
   end
 end

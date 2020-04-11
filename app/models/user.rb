@@ -10,6 +10,5 @@ class User < ApplicationRecord
   enum role: {visitor: 0, default: 1, merchant: 2, admin: 3}
   has_secure_password
 
-  has_one :user_detail
-  accepts_nested_attributes_for :user_detail
+  has_many :orders
 end
