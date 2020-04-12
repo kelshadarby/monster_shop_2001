@@ -12,15 +12,5 @@ class Order <ApplicationRecord
   def total_items
     item_orders.sum('quantity')
   end
-
-  def status
-    return "canceled" if item_orders.where('status = ?', "canceled").any?
-    if item_orders.where('status = ?', "unfulfilled").any?
-      "pending"
-    else
-      "packaged"
-    end
-
-  end
-
+  
 end
