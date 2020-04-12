@@ -1,0 +1,5 @@
+<section class="order-#{@order.id}-details">
+<p><%= @order.status %></p><%= link_to "Cancel Order", order_cancel_path(@order), method: :patch %>
+</section>
+
+
