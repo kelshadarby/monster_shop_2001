@@ -46,6 +46,8 @@ RSpec.describe "As a visitor", type: :feature do
         zip_code: "12345"
       )
       @user2.save
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      meg.users << @user2
 
       visit '/login'
       fill_in "Email Address", with: @user2.email_address
@@ -117,6 +119,8 @@ RSpec.describe "As a visitor", type: :feature do
         zip_code: "12345"
       )
       @user2.save
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      meg.users << @user2
 
       visit '/login'
       fill_in "Email Address", with: @user2.email_address
