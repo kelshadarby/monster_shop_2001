@@ -58,6 +58,13 @@ describe Order, type: :model do
       expect(@item_order_tire.status).to eq("unfulfilled")
     end
 
+    it 'ship' do
+      @item_order_tire.fulfill
+      @order_1.ship
+
+      expect(@order_1.status).to eq("shipped")
+    end
+
     after(:each) do
       ItemOrder.destroy_all
       Order.destroy_all
