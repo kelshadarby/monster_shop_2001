@@ -54,10 +54,6 @@ RSpec.describe "As a default user", type: :feature do
       expect(page).to have_content(@paper.description)
       expect(page).to have_content(@pencil.description)
 
-      expect(page).to have_content(@tire.price)
-      expect(page).to have_content(@paper.price)
-      expect(page).to have_content(@pencil.price)
-
       expect(page).to have_content(@tire.image)
       expect(page).to have_content(@paper.image)
       expect(page).to have_content(@pencil.image)
@@ -65,6 +61,10 @@ RSpec.describe "As a default user", type: :feature do
       expect(page).to have_content(@item_order_tire.quantity)
       expect(page).to have_content(@item_order_paper.quantity)
       expect(page).to have_content(@item_order_pencil.quantity)
+
+      expect(page).to have_content(@tire.price)
+      expect(page).to have_content(@paper.price)
+      expect(page).to have_content(@pencil.price)
 
       expect(page).to have_content(@item_order_tire.subtotal)
       expect(page).to have_content(@item_order_paper.subtotal)
