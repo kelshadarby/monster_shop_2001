@@ -1,1 +1,53 @@
-<h1>This is a Placeholder for Admin Dashboard</h1>
+<h1>Admin Dashboard</h1>
+
+<%if @packaged_orders.length != 0 %>
+  <h3>Packaged Orders</h3>
+  <section class="packaged_orders">
+    <% @packaged_orders.each do |order| %>
+      <h4>Order: <%=order.id%></h4>
+      <p>Placed By: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+      <p>Ordered Placed At: <%=order.created_at%></p>
+    <%end%>
+  </section>
+<%else%>
+  <h3>No Packaged Orders</h3>
+<%end%>
+
+<%if @pending_orders.length != 0%>
+  <h3>Pending Orders</h3>
+  <section class="pending_orders">
+    <% @pending_orders.each do |order| %>
+      <h4>Order: <%=order.id%></h4>
+      <p>Placed By: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+      <p>Ordered Placed At: <%=order.created_at%></p>
+    <%end%>
+  </section>
+<%else%>
+  <h3>No Pending Orders</h3>
+<%end%>
+
+<%if @shipped_orders.length != 0%>
+  <h3>Shipped Orders</h3>
+  <section class="shipped_orders">
+    <% @shipped_orders.each do |order| %>
+      <h4>Order: <%=order.id%></h4>
+      <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+      <p>Ordered Placed At: <%=order.created_at%></p>
+    <%end%>
+  </section>
+<%else%>
+  <h3>No Shipped Orders</h3>
+<%end%>
+
+<%if @canceled_orders.length != 0%>
+  <h3>Canceled Orders</h3>
+  <section class="canceled_orders">
+    <% @canceled_orders.each do |order| %>
+      <h4>Order: <%=order.id%></h4>
+      <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+      <p>Ordered Placed At: <%=order.created_at%></p>
+    <%end%>
+  </section>
+<%else%>
+  <h3>No Canceled Orders</h3>
+<%end%>
