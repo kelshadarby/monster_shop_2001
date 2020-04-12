@@ -13,7 +13,7 @@ RSpec.describe 'As an admin user', type: :feature do
      @order_2 = @user.orders.create!(name: 'Brian', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: "packaged")
      @order_3 = @user2.orders.create!(name: 'Bryan', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: "shipped")
      @order_4 = @user2.orders.create!(name: 'Bryan', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: "canceled")
-     @item_order_tire = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+     @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
      @order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 7)
      @order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 9)
@@ -26,31 +26,58 @@ RSpec.describe 'As an admin user', type: :feature do
     it 'I see all orders in the system with id, date, and user who placed it linking to show page' do
       visit admin_dashboard_path
 
-      within ".packaged_orders" do
+       expect(find(".packaged-orders")).to appear_before(find(".pending-orders"))
+       expect(find(".pending-orders")).to appear_before(find(".shipped-orders"))
+       expect(find(".shipped-orders")).to appear_before(find(".canceled-orders"))
+
+      within ".packaged-orders" do
         expect(page).to have_content("#{@order_2.id}")
         expect(page).to have_content(@order_2.created_at)
         expect(page).to have_link(@order_2.user.id, href: "/admin/users/#{@user.id}")
       end
 
-      within ".pending_orders" do
+      within ".pending-orders" do
         expect(page).to have_content("#{@order_1.id}")
         expect(page).to have_content(@order_1.created_at)
         expect(page).to have_link(@order_1.user.id, href: "/admin/users/#{@user.id}")
       end
 
-      within ".shipped_orders" do
+      within ".shipped-orders" do
         expect(page).to have_content("#{@order_3.id}")
         expect(page).to have_content(@order_3.created_at)
         expect(page).to have_link(@order_3.user.id, href: "/admin/users/#{@user2.id}")
       end
 
-      within ".canceled_orders" do
+      within ".canceled-orders" do
         expect(page).to have_content("#{@order_4.id}")
         expect(page).to have_content(@order_4.created_at)
         expect(page).to have_link(@order_4.user.id, href: "/admin/users/#{@user2.id}")
       end
     end
+
+    it 'I can click a button next to every order marked packaged to ship it' do
+      visit admin_dashboard_path
+
+      within ".packaged-orders" do
+        within "#order-#{@order_2.id}-summary" do
+          click_link "Ship Order"
+          @order_2.reload
+          expect(@order_2.status).to eq("shipped")
+        end
+      end
+      within ".pending-orders" do
+        expect(page).to_not have_link("Ship Order")
+      end
+      within ".shipped-orders" do
+        expect(page).to_not have_link("Ship Order")
+        expect(page).to have_content(@order_2.id)
+      end
+      within ".canceled-orders" do
+        expect(page).to_not have_link("Ship Order")
+      end
+    end
   end
+  
   after(:each) do
     ItemOrder.destroy_all
     Order.destroy_all
