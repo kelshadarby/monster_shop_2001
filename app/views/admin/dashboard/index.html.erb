@@ -1,51 +1,60 @@
 <h1>Admin Dashboard</h1>
-
-<section class="packaged_orders">
+save_and_open_page
+<section class="packaged-orders">
   <%if @packaged_orders.length != 0 %>
     <h3>Packaged Orders</h3>
       <% @packaged_orders.each do |order| %>
-        <h4>Order: <%=order.id%></h4>
-        <p>Placed By: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
-        <p>Ordered Placed At: <%=order.created_at%></p>
+        <article id="order-<%= order.id %>-summary">
+          <h4>Order: <%=order.id%></h4>
+          <p>Placed By: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+          <p>Ordered Placed At: <%=order.created_at%></p>
+          <p><%= link_to "Ship Order", admin_order_ship_path(order), method: :patch %></p>
+        </article>
       <%end%>
   <%else%>
     <h3>No Packaged Orders</h3>
   <%end%>
 </section>
 
-<section class="pending_orders">
+<section class="pending-orders">
   <%if @pending_orders.length != 0%>
     <h3>Pending Orders</h3>
       <% @pending_orders.each do |order| %>
-        <h4>Order: <%=order.id%></h4>
-        <p>Placed By: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
-        <p>Ordered Placed At: <%=order.created_at%></p>
+        <article id="order-<%= order.id %>-summary">
+            <h4>Order: <%=order.id%></h4>
+            <p>Placed By: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+            <p>Ordered Placed At: <%=order.created_at%></p>
+          </article>
       <%end%>
   <%else%>
     <h3>No Pending Orders</h3>
   <%end%>
 </section>
 
-<section class="shipped_orders">
+<section class="shipped-orders">
   <%if @shipped_orders.length != 0%>
     <h3>Shipped Orders</h3>
       <% @shipped_orders.each do |order| %>
-        <h4>Order: <%=order.id%></h4>
-        <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
-        <p>Ordered Placed At: <%=order.created_at%></p>
+        <article id="order-<%= order.id %>-summary">
+          <h4>Order: <%=order.id%></h4>
+          <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+          <p>Ordered Placed At: <%=order.created_at%></p>
+          </article>
       <%end%>
   <%else%>
     <h3>No Shipped Orders</h3>
   <%end%>
 </section>
 
-<section class="canceled_orders">
+<section class="canceled-orders">
   <%if @canceled_orders.length != 0%>
     <h3>Canceled Orders</h3>
       <% @canceled_orders.each do |order| %>
-        <h4>Order: <%=order.id%></h4>
-        <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
-        <p>Ordered Placed At: <%=order.created_at%></p>
+        <article id="order-<%= order.id %>-summary">
+          <h4>Order: <%=order.id%></h4>
+          <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+          <p>Ordered Placed At: <%=order.created_at%></p>
+          </article>
       <%end%>
   <%else%>
     <h3>No Canceled Orders</h3>
