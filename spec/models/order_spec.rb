@@ -60,8 +60,10 @@ describe Order, type: :model do
 
     it 'ship' do
       @item_order_tire.fulfill
+      @item_order_pull_toy.fulfill
       @order_1.ship
-
+      @order_1.reload
+      
       expect(@order_1.status).to eq("shipped")
     end
 
