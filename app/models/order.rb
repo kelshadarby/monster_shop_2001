@@ -13,4 +13,11 @@ class Order <ApplicationRecord
     item_orders.sum('quantity')
   end
   
+  def cancel
+    item_orders.each do |item_order|
+      item_order.unfulfill
+    end
+    self.update(status: "canceled")
+  end
+  
 end
