@@ -60,6 +60,7 @@ RSpec.describe 'As an admin user', type: :feature do
 
       within ".packaged-orders" do
         within "#order-#{@order_2.id}-summary" do
+          @order_2.item_orders.first.fulfill
           click_link "Ship Order"
           @order_2.reload
           expect(@order_2.status).to eq("shipped")
