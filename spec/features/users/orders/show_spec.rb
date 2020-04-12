@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "As a signed in user, when I visit /profile", type: :feature do
-  before(:all) do
-        @user = User.create!(
-          email_address: "user1@example.com",
-          password: "password",
-          name: "User 1",
-          street_address: "123 Example St",
-          city: "Userville",
-          state: "State 1",
-          zip_code: "12345"
-        )
-       
+  before(:each) do
+    @user = User.create!(
+      email_address: "user1@example.com",
+      password: "password",
+      name: "User 1",
+      street_address: "123 Example St",
+      city: "Userville",
+      state: "State 1",
+      zip_code: "12345"
+    ) 
   end
 
   it "IF I have NO orders: I do not see a link to My Orders" do
@@ -34,10 +33,12 @@ RSpec.describe "As a signed in user, when I visit /profile", type: :feature do
 
     click_link "My Orders"
 
-    expect(current_path).to eq(profile_orders_path)
+    expect(current_path).to eq(user_orders_path)
   end
 
-  after(:all) do
+  after(:each) do
+    ItemOrder.destroy_all
+    Order.destroy_all
     User.destroy_all
     Merchant.destroy_all
   end
