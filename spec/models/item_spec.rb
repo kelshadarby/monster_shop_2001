@@ -48,6 +48,31 @@ describe Item, type: :model do
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
+
+    it 'deletable?' do
+      tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
+      tire2 = @bike_shop.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 2)
+
+      order_1 = @user.orders.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      item_order_1 = order_1.item_orders.create!(item: tire1, price: tire1.price, quantity: 1)
+
+      expect(tire1.deletable?).to eq(false)
+      expect(tire2.deletable?).to eq(true)
+    end
+
+    it "deactivate" do
+      expect(@chain.active?).to eq(true)
+      @chain.deactivate
+      expect(@chain.active?).to eq(false)
+    end
+
+    it "activate" do
+      @chain.deactivate
+      expect(@chain.active?).to eq(false)
+      @chain.activate
+      expect(@chain.active?).to eq(true)
+    end
+
   end
 
   describe "class methods" do
@@ -95,51 +120,6 @@ describe Item, type: :model do
       item_order_3 = order_1.item_orders.create!(item: tire3, price: tire3.price, quantity: 3)
 
       expect(Item.least_popular(5)).to eq([tire3, tire4, tire5, tire6, tire1])
-    end
-
-    after(:each) do
-      ItemOrder.destroy_all
-      Order.destroy_all
-      User.destroy_all
-      Merchant.destroy_all
-    end
-
-  end
-
-  describe "instance methods" do
-    before(:each) do
-      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
-      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-    end
-
-    it 'deletable?' do
-      tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
-      tire2 = @bike_shop.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 2)
-
-      order_1 = @user.orders.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      item_order_1 = order_1.item_orders.create!(item: tire1, price: tire1.price, quantity: 1)
-
-      expect(tire1.deletable?).to eq(false)
-      expect(tire2.deletable?).to eq(true)
-    end
-
-    it "deactivate" do
-      bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-     tire1 = bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
-
-      expect(tire1.active?).to eq(true)
-      tire1.deactivate
-      expect(tire1.active?).to eq(false)
-    end
-
-    it "activate" do
-      bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-     tire1 = bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
-
-      tire1.deactivate
-      expect(tire1.active?).to eq(false)
-      tire1.activate
-      expect(tire1.active?).to eq(true)
     end
 
     after(:each) do
