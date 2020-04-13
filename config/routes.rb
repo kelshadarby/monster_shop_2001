@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/dashboard', to: "dashboard#index"
+    get '/items', to: "items#index"
+    patch '/items/:id', to: "items#update", as: :items_update
   end
 
   get "/merchants", to: "merchants#index"
