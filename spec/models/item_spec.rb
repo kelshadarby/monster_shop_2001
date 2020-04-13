@@ -114,5 +114,25 @@ describe Item, type: :model do
 
       expect(Item.least_popular(5)).to eq([tire3, tire4, tire5, tire6, tire1])
     end
+
+    it "deactivate" do
+      bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+     tire1 = bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
+
+      expect(tire1.active?).to eq(true)
+      tire1.deactivate
+      expect(tire1.active?).to eq(false)
+    end
+
+    it "activate" do
+      bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+     tire1 = bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
+
+      tire1.deactivate
+      expect(tire1.active?).to eq(false)
+      tire1.activate
+      expect(tire1.active?).to eq(true)
+    end
+
   end
 end
