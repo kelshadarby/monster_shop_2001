@@ -1,0 +1,11 @@
+<h1>Merchants</h1>
+
+<%@merchants.each do |merchant|%>
+  <p>
+    <%=merchant.name%>
+    <%if !merchant.disabled?%>
+       <%= button_to "Disable" %>
+    <%else%>
+    <%end%>
+  </p>
+<%end%>
