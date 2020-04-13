@@ -5,6 +5,9 @@
 <%=@merchant.state%>
 <%=@merchant.zip%></p>
 
+<p><%= link_to "View My Items", merchant_items_path%></p><br>
+
+<h4>My Pending Orders</h4>
 <% @merchant.pending_orders.each do |order| %>
   <p>Order # <%= link_to "#{order.id}", "/merchant/orders/#{order.id}"%></p>
   <p>Created at <%=order.created_at%></p>
