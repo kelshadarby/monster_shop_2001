@@ -19,16 +19,7 @@ describe Item, type: :model do
 
   describe "instance methods" do
     before(:each) do
-      @user = User.create!(
-        email_address: 'user1@example.com',
-        password: 'password',
-        role: 'default',
-        name: 'User 1',
-        street_address: '123 Example St',
-        city: 'Userville',
-        state: 'State 1',
-        zip_code: '12345'
-      )
+      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
 
@@ -61,20 +52,11 @@ describe Item, type: :model do
 
   describe "class methods" do
     before(:each) do
-      @user = User.create!(
-        email_address: 'user1@example.com',
-        password: 'password',
-        role: 'default',
-        name: 'User 1',
-        street_address: '123 Example St',
-        city: 'Userville',
-        state: 'State 1',
-        zip_code: '12345'
-      )
+      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
+      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
     end
 
     it 'most_popular' do
-       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
       tire2 = @bike_shop.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 2)
       tire3 = @bike_shop.items.create(name: "Gatorskins3", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 3)
@@ -95,7 +77,7 @@ describe Item, type: :model do
     end
 
     it 'least_popular' do
-       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      
       tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
       tire2 = @bike_shop.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 2)
       tire3 = @bike_shop.items.create(name: "Gatorskins3", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 3)
@@ -114,5 +96,23 @@ describe Item, type: :model do
 
       expect(Item.least_popular(5)).to eq([tire3, tire4, tire5, tire6, tire1])
     end
+
+    it 'deletable?' do
+      tire1 = @bike_shop.items.create(name: "Gatorskins1", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 1)
+      tire2 = @bike_shop.items.create(name: "Gatorskins2", description: "They'll never pop!", price: 100, image: "https://tinyurl.com/tn7jnts", inventory: 2)
+
+      order_1 = @user.orders.create!(name: 'Meg1', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      item_order_1 = order_1.item_orders.create!(item: tire1, price: tire1.price, quantity: 1)
+
+      expect(tire1.deletable?).to eq(false)
+      expect(tire2.deletable?).to eq(true)
+
+    end
+  end
+    after(:each) do
+    ItemOrder.destroy_all
+    Order.destroy_all
+    User.destroy_all
+    Merchant.destroy_all
   end
 end
