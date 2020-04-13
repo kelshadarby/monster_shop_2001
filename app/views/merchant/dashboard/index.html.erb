@@ -4,3 +4,10 @@
 <%=@merchant.city%>
 <%=@merchant.state%>
 <%=@merchant.zip%></p>
+
+<% @merchant.pending_orders.each do |order| %>
+  <p>Order # <%= link_to "#{order.id}", "/merchant/orders/#{order.id}"%></p>
+  <p>Created at <%=order.created_at%></p>
+  <p>Number of My Items: <%=order.number_of_items_for_merchant(@merchant.id)%></p>
+  <p>Value of My Items: <%=number_to_currency(order.total_cost_for_merchant(@merchant.id))%></p>
+<%end%>
