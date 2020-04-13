@@ -14,10 +14,16 @@ class Order <ApplicationRecord
   end
   
   def cancel
+    return false if status == "shipped"
     item_orders.each do |item_order|
       item_order.unfulfill
     end
     self.update(status: "canceled")
+  end
+
+  def ship
+    return false if item_orders.where(status: "unfulfilled").any?
+    self.update(status: "shipped")
   end
   
 end

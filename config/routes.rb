@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/dashboard', to: "dashboard#index"
     get '/users', to: "users#index"
+    patch "/order/:id", to: "order#ship", as: :order_ship
   end
 
   namespace :merchant do
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show", as: :order_show
   patch "/orders/:id", to: "orders#cancel", as: :order_cancel
+  
 
   get "/register", to: "users#new"
 
