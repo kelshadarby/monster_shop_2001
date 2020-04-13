@@ -58,6 +58,13 @@ describe Order, type: :model do
       expect(@item_order_tire.status).to eq("unfulfilled")
     end
 
+    it "total_cost_for_merchant" do
+      expect(@order_1.total_cost_for_merchant(@meg.id)).to eq(200.0)
+    end
+
+    it "number_of_items_for_merchant" do
+      expect(@order_1.number_of_items_for_merchant(@meg.id)).to eq(2)
+
     it 'ship' do
       @item_order_tire.fulfill
       @item_order_pull_toy.fulfill

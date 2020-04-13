@@ -12,7 +12,7 @@ class Order <ApplicationRecord
   def total_items
     item_orders.sum('quantity')
   end
-  
+
   def cancel
     return false if status == "shipped"
     item_orders.each do |item_order|
@@ -21,9 +21,19 @@ class Order <ApplicationRecord
     self.update(status: "canceled")
   end
 
+
+  def number_of_items_for_merchant(merchant_id)
+    item_orders.joins(:item).where(items: {merchant_id: merchant_id}).sum(:quantity)
+  end
+
+  def total_cost_for_merchant(merchant_id)
+    item_orders.joins(:item).where(items: {merchant_id: merchant_id}).sum('item_orders.quantity * item_orders.price')
+  end
+
   def ship
     return false if item_orders.where(status: "unfulfilled").any?
     self.update(status: "shipped")
   end
   
+
 end
