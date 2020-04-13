@@ -78,6 +78,32 @@ RSpec.describe "As an admin", type: :feature do
       expect(page).to have_content("#{@meg.name} has been enabled.")
     end
 
+    it "All items from a disabled merchant are inactive" do
+      visit '/admin/merchants'
+
+      within "#merchant-#{@meg.id}" do
+        click_button "Disable"
+      end
+
+      @meg.items.each do |item|
+        expect(item.active?).to eq(false)
+      end
+    end
+
+    it "All items from an enabled merchant are active" do
+      @meg.disable
+
+      visit '/admin/merchants'
+
+      within "#merchant-#{@meg.id}" do
+        click_button "Enable"
+      end
+
+      @meg.items.each do |item|
+        expect(item.active?).to eq(true)
+      end
+    end
+
     after(:each) do
       ItemOrder.destroy_all
       Order.destroy_all
