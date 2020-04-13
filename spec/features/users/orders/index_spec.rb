@@ -47,6 +47,6 @@ RSpec.describe "As a user", type: :feature do
            expect(page).to have_content(new_order.updated_at)
            expect(page).to have_content(new_order.grandtotal)
            expect(page).to have_content(new_order.total_items)
-           expect(page).to have_content(new_order.status)
+           expect(page).to have_content(new_order.status.capitalize)
     end
   end

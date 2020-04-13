@@ -17,16 +17,7 @@ describe Order, type: :model do
 
   describe 'instance methods' do
     before(:each) do
-      @user = User.create!(
-        email_address: 'user1@example.com',
-        password: 'password',
-        role: 'default',
-        name: 'User 1',
-        street_address: '123 Example St',
-        city: 'Userville',
-        state: 'State 1',
-        zip_code: '12345'
-      )
+      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
@@ -35,8 +26,8 @@ describe Order, type: :model do
 
       @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
 
-      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      @item_order_tire = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      @item_order_pull_toy = @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
     end
 
     it 'grandtotal' do
@@ -50,15 +41,44 @@ describe Order, type: :model do
     it 'status' do
       expect(@order_1.status).to eq("pending")
 
-      order_2 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      
-      # expect(order_2.status).to eq("packaged")
+      @order_1.item_orders.each do |order_item|
+        order_item.fulfill
+      end
 
+      expect(@order_1.status).to eq("packaged")
     end
 
-    after(:all) do
+    it 'cancel' do
+      @item_order_tire.fulfill
+      @order_1.cancel
+
+      expect(@tire.inventory).to eq(12)
+      expect(@pull_toy.inventory).to eq(32)
+      expect(@order_1.status).to eq("canceled")
+      expect(@item_order_tire.status).to eq("unfulfilled")
+    end
+
+    it "total_cost_for_merchant" do
+      expect(@order_1.total_cost_for_merchant(@meg.id)).to eq(200.0)
+    end
+
+    it "number_of_items_for_merchant" do
+      expect(@order_1.number_of_items_for_merchant(@meg.id)).to eq(2)
+
+    it 'ship' do
+      @item_order_tire.fulfill
+      @item_order_pull_toy.fulfill
+      @order_1.ship
+      @order_1.reload
+      
+      expect(@order_1.status).to eq("shipped")
+    end
+
+    after(:each) do
+      ItemOrder.destroy_all
+      Order.destroy_all
       User.destroy_all
+      Merchant.destroy_all
     end
   end
 end

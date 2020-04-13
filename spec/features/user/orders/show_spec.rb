@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "As a default user", type: :feature do
   describe "When I view an orders show page" do
-    #===============================================================================
+
     before(:each) do
       @user = User.create(
         email_address: 'user1@example.com',
@@ -14,10 +14,7 @@ RSpec.describe "As a default user", type: :feature do
         state: 'State 1',
         zip_code: '12345'
       )
-      visit login_path
-      fill_in "Email Address", with: @user.email_address
-      fill_in "Password", with: @user.password
-      click_button "Login"
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
@@ -33,14 +30,13 @@ RSpec.describe "As a default user", type: :feature do
       @all_item_orders = ItemOrder.where(order_id: @order.id)
     end
 
-
     it "I see all information about the order" do
        total_quantity = @all_item_orders.sum { |item| item.quantity }
 
       visit "/profile/orders"
       click_link "#{@order.id}"
 
-      expect(current_path).to eq("/profile/orders/#{@order.id}")
+      expect(current_path).to eq(user_order_show_path(@order))
       expect(page).to have_content(@order.id)
       expect(page).to have_content(@order.created_at.to_date)
       expect(page).to have_content(@order.updated_at.to_date)
@@ -74,12 +70,32 @@ RSpec.describe "As a default user", type: :feature do
       expect(page).to have_content(@order.grandtotal)
     end
 
+    it 'Can cancel an order' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      @item_order_tire.fulfill
+      visit user_order_show_path(@order)
+      
+      click_link "Cancel Order"
+
+      @order.reload
+      @item_order_tire.reload
+
+      expect(Order.find(@order.id).status).to eq("canceled")
+      expect(@item_order_tire.status).to eq("unfulfilled")
+
+      expect(current_path).to eq(user_orders_path)
+      expect(page).to have_content("Order #{@order.id} Canceled")
+      
+      within  "#order-#{@order.id}-details" do
+        expect(page).to have_content("Canceled")
+      end
+    end
+
     after(:each) do
       ItemOrder.destroy_all
       Order.destroy_all
       User.destroy_all
       Merchant.destroy_all
     end
-
   end
 end

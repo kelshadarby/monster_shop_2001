@@ -12,6 +12,8 @@ RSpec.describe "As a merchant user (role 2)", type: :feature do
       state: "State 1",
       zip_code: "12345"
     )
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg.users << merchant_user
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
 
@@ -49,6 +51,8 @@ RSpec.describe "As a merchant user (role 2)", type: :feature do
       state: "State 1",
       zip_code: "12345"
     )
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg.users << merchant_user
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
 

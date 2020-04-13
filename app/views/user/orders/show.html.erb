@@ -1,5 +1,4 @@
 <h1 align="center"><%=@order.id%></h1>
-
 <h1 align="center">Order Info</h1>
 <center>
   <table>
@@ -23,19 +22,12 @@
     </tr>
   <% end %>
 </table>
-
-<section id="total-quantity">
+<%= link_to "Cancel Order", order_cancel_path(@order), method: :patch %>
+<section class="order-summary">
   <p>Total Quantity: <%=@order.total_items%></p>
-</section>
-<section id="grand-total">
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
-</section>
-<section id="status">
   <p>Status: <%=@order.status.capitalize()%></p>
-</section>
-<section id="date-created">
   <p> <%= @order.created_at%></p>
-</section>
-<section id="date-updated">
   <p> <%= @order.updated_at%></p>
 </section>
+

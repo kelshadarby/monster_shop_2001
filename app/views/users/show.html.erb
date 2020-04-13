@@ -6,6 +6,6 @@
 <p>State: <%=current_user.state%></p>
 <p>Zip: <%=current_user.zip_code%></p>
 
-<%= link_to "My Orders", profile_orders_path if current_user.has_orders? %>
+<%= link_to "My Orders", user_orders_path if current_user.has_orders? %>
 <%= link_to "Edit Profile", "/profile/edit"%>
 <%= link_to "Change Password", "/profile/change_password"%>
