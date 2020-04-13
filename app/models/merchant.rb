@@ -32,10 +32,12 @@ class Merchant <ApplicationRecord
 
   def disable
     update(active?: false)
+    items.each { |item| item.deactivate }
   end
 
   def enable
     update(active?: true)
+    items.each { |item| item.activate }
   end
 
 end
