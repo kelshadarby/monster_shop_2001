@@ -76,14 +76,18 @@ describe Merchant, type: :model do
       expect(@meg.pending_orders).to include(order_1, order_2, order_3)
     end
 
-    it "disabled?" do
-      expect(@meg.disabled?).to eq(false)
+    it "disable" do
+      expect(@meg.active?).to eq(true)
+      @meg.disable
+      expect(@meg.active?).to eq(false)
     end
 
-    it "disable" do
-      expect(@meg.disabled?).to eq(false)
+    it "enable" do
       @meg.disable
-      expect(@meg.disabled?).to eq(true)
+      expect(@meg.active?).to eq(false)
+      @meg.enable
+      expect(@meg.active?).to eq(true)
     end
+
   end
 end
