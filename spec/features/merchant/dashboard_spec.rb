@@ -43,6 +43,14 @@ RSpec.describe 'As an merchant user', type: :feature do
       expect(page).to have_content("My Items: 5")
       expect(page).to have_content("Value of My Items: $260")
     end
+
+    it "I see a link that takes me to /merchant/items" do
+      visit merchant_dashboard_path
+
+      expect(page).to have_link("View My Items")
+      click_link("View My Items")
+      expect(current_path).to eq(merchant_items_path)
+    end
   end
   after(:each) do
     ItemOrder.destroy_all
