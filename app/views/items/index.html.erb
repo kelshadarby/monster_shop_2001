@@ -13,8 +13,6 @@
       <p> <%= item.description unless @merchant%> </p>
       <p>Price: <%=number_to_currency(item.price) %> </p>
       <p>Inventory: <%= item.inventory %> </p>
-      <% if !@merchant %>
-      <% end %>
       <% if item.active? %>
         <p>Active</p>
       <% else %>
@@ -43,7 +41,7 @@
         <p>Inactive</p>
       <% end %>
     </section>
-  <% end %> 
+  <% end %>
   </article>
   <article class="unpopular-items">
   <h1>Least Popular</h1>
@@ -64,6 +62,6 @@
             <p>Inactive</p>
           <% end %>
         </section>
-    <% end %> 
+    <% end %>
   </article>
 </section>

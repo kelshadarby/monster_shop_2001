@@ -25,7 +25,15 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
-  def self.most_popular(num_items_to_show)      
+  def activate
+    update(active?: true)
+  end
+
+  def deactivate
+    update(active?: false)
+  end
+
+  def self.most_popular(num_items_to_show)
     Item.joins(:item_orders)
         .select('items.*, sum(item_orders.quantity)')
         .group(:id)
@@ -33,7 +41,7 @@ class Item <ApplicationRecord
         .limit(num_items_to_show)
   end
 
-  def self.least_popular(num_items_to_show)      
+  def self.least_popular(num_items_to_show)
     Item.joins(:item_orders)
         .select('items.*, sum(item_orders.quantity)')
         .group(:id)
