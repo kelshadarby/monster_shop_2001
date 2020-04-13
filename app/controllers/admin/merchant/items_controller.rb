@@ -1,22 +1,22 @@
-class Merchant::ItemsController < Merchant::BaseController
-
+class Admin::Merchant::ItemsController < Admin::BaseController
+  
   def index
-    @merchant = Merchant.find(current_user.merchant.id)
+    @merchant = Merchant.find(params[:id])
   end
 
   def update
-    item = Item.find(params[:id])
+    merchant = Merchant.find(params[:id])
+    item = Item.find(params[:item_id])
     if item.update(item_params)
       flash[:success] = "Item #{item.id} is " + item_active_message(item.active?)
     else
       flash[:error] = item.errors.full_messages.to_sentence
     end
-    redirect_to merchant_items_path
+    redirect_to admin_merchant_items_path
   end
 
-  private
-
-  def item_params
+    def item_params
     params.permit(:name,:description,:price,:inventory,:image, :active?)
   end
+
 end

@@ -12,12 +12,17 @@ Rails.application.routes.draw do
     get '/merchants/:merchant_id', to: "merchants#show"
     patch '/merchants/:merchant_id', to: "merchants#update"
     patch "/order/:id", to: "order#ship", as: :order_ship
+    namespace :merchant do
+      get ':id/items', to: "items#index", as: :items
+      get ":id/items/:item_id", to: "items#show", as: :item_show
+      patch ':id/items/:item_id', to: "items#update", as: :item_update
+    end
   end
 
   namespace :merchant do
     get '/dashboard', to: "dashboard#index"
     get '/items', to: "items#index"
-    patch '/items/:id', to: "items#update", as: :items_update
+    patch '/items/:id', to: "items#update", as: :item_update
   end
 
   get "/merchants", to: "merchants#index"
