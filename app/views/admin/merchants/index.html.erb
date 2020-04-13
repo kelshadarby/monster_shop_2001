@@ -1,11 +1,12 @@
 <h1>Merchants</h1>
 
 <%@merchants.each do |merchant|%>
-  <p>
-    <%=merchant.name%>
+<section id="merchant-<%=merchant.id%>"
+    <p><%=merchant.name%></p>
     <%if !merchant.disabled?%>
-       <%= button_to "Disable" %>
+       <%= button_to "Disable", "/admin/merchants/#{merchant.id}", method: :patch%>
     <%else%>
+      <p>Disabled</p>
     <%end%>
-  </p>
+  </section>
 <%end%>
