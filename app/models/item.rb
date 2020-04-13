@@ -49,4 +49,8 @@ class Item <ApplicationRecord
         .limit(num_items_to_show)
   end
 
+  def deletable?
+    !orders.any?
+  end
+
 end

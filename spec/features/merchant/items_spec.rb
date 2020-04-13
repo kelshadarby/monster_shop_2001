@@ -80,6 +80,23 @@ RSpec.describe 'As an merchant user', type: :feature do
         expect(page).to have_content("Active")
       end
     end
+
+    it 'I can delete never ordered items' do
+      taco = @meg.items.create(name: "taco", description: "its a taco", price: 1, image: "https://upload.wikimedia.org/wikipedia/commons/3/3a/NCI_Visuals_Food_Taco.jpg", inventory: 5000)
+      visit merchant_items_path
+
+      within "#item-#{@tire.id}" do
+        expect(page).to_not have_link("Delete")
+      end
+
+      within "#item-#{@bottle.id}" do
+        expect(page).to_not have_link("Delete")
+      end
+
+      within "#item-#{taco.id}" do
+        expect(page).to have_link("Delete")
+      end
+    end
   end
 
   after(:each) do
