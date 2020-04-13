@@ -99,6 +99,8 @@ RSpec.describe "As an admin", type: :feature do
         click_button "Enable"
       end
 
+      @meg.reload
+
       @meg.items.each do |item|
         expect(item.active?).to eq(true)
       end
