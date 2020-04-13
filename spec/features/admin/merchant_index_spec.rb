@@ -45,7 +45,37 @@ RSpec.describe "As an admin", type: :feature do
         expect(page).to_not have_content("Disabled")
       end
 
-      expect(page).to have_content("#{@meg.name} has been disabled")
+      expect(page).to have_content("#{@meg.name} has been disabled.")
+    end
+
+    it "I can enable a merchant" do
+      @meg.disable
+
+      visit '/admin/merchants'
+
+      within "#merchant-#{@brian.id}" do
+        expect(page).to have_button("Disable")
+        expect(page).to_not have_button("Enable")
+      end
+
+      within "#merchant-#{@meg.id}" do
+        expect(page).to_not have_button("Disable")
+        click_button("Enable")
+      end
+
+      expect(current_path).to eq('/admin/merchants')
+
+      within "#merchant-#{@brian.id}" do
+        expect(page).to have_button("Disable")
+        expect(page).to_not have_button("Enable")
+      end
+
+      within "#merchant-#{@meg.id}" do
+        expect(page).to have_button("Disable")
+        expect(page).to_not have_button("Enable")
+      end
+
+      expect(page).to have_content("#{@meg.name} has been enabled.")
     end
 
     after(:each) do
@@ -57,10 +87,3 @@ RSpec.describe "As an admin", type: :feature do
 
   end
 end
-
-
-# When I visit the admin's merchant index page ('/admin/merchants')
-# I see a "disable" button next to any merchants who are not yet disabled
-# When I click on the "disable" button
-# I am returned to the admin's merchant index page where I see that the merchant's account is now disabled
-# And I see a flash message that the merchant's account is now disabled
