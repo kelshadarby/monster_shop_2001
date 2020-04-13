@@ -11,10 +11,10 @@
       <% end %>
       <% if item.active? %>
         <p>Active</p>
-        <%= link_to "Deactivate", merchant_item_update_path(item, active?: false), method: :patch %>
+        <%= link_to "Deactivate", admin_merchant_item_update_path(@merchant, item, active?: false), method: :patch %>
       <% else %>
         <p>Inactive</p>
-        <%= link_to "Activate", merchant_item_update_path(item, active?: true), method: :patch %>
+        <%= link_to "Activate", admin_merchant_item_update_path(@merchant, item, active?: true), method: :patch %>
       <% end %>
       <% if item.deletable? %>
         <%= link_to "Delete",  item_destroy_path(item) %>

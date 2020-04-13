@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def current_merchant?
     current_user && current_user.merchant?
   end
+
+  def item_active_message(active)
+    active ? "for sale" : "not for sale"
+  end
 end
