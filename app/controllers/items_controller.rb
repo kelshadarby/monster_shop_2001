@@ -36,7 +36,7 @@ class ItemsController<ApplicationController
     @item = Item.find(params[:id])
     @item.update(item_params)
     if @item.save
-      redirect_to "/items/#{@item.id}"
+      dynamic_redirect
     else
       flash[:error] = @item.errors.full_messages.to_sentence
       render :edit
@@ -56,5 +56,14 @@ class ItemsController<ApplicationController
     params.permit(:name,:description,:price,:inventory,:image)
   end
 
+  def dynamic_redirect
+    if current_merchant?
+      redirect_to merchant_items_path
+    elsif current_admin?
+      redirect_to admin_merchant_items_path
+    else
+      redirect_to "/items/#{@item.id}"
+    end
+  end
 
 end
