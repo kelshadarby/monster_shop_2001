@@ -25,7 +25,7 @@ RSpec.describe 'As an merchant user', type: :feature do
   describe 'On my order show page' do
     it 'I can see the details of an order' do
       visit merchant_order_show_path(@order_1)
-save_and_open_page
+
       expect(page).to have_content(@order_1.name)
       expect(page).to have_content(@order_1.address)
       expect(page).to have_content(@order_1.state)
