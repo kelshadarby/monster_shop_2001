@@ -4,6 +4,21 @@ class Merchant::ItemsController < Merchant::BaseController
     @merchant = Merchant.find(current_user.merchant.id)
   end
 
+  def new
+  end
+
+  def create
+    merchant = Merchant.find(current_user.merchant.id)
+    item = merchant.items.new(item_params)
+    if item.save
+      flash[:success] = "#{item.name} has been created."
+      flash[:notice] = "Item #{item.name} is " + item_active_message(item.active?)
+    else
+      flash[:error] = item.errors.full_messages.to_sentence
+    end
+    redirect_to merchant_items_path
+  end
+
   def update
     item = Item.find(params[:id])
     if item.update(item_params)
@@ -17,6 +32,6 @@ class Merchant::ItemsController < Merchant::BaseController
   private
 
   def item_params
-    params.permit(:name,:description,:price,:inventory,:image, :active?)
+    params.permit(:name,:description,:price,:inventory,:image,:active?)
   end
 end
