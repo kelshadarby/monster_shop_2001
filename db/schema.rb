@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200413034746) do
+ActiveRecord::Schema.define(version: 20200414211407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20200413034746) do
     t.string "name"
     t.string "description"
     t.integer "price"
-    t.string "image"
+    t.string "image", default: "https://upload.wikimedia.org/wikipedia/commons/1/15/No_image_available_600_x_450.svg"
     t.boolean "active?", default: true
     t.integer "inventory"
     t.bigint "merchant_id"
