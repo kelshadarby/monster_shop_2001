@@ -117,7 +117,7 @@ RSpec.describe 'As an merchant user', type: :feature do
       expect(page).to have_content("Half the tire at twice the cost :^)")
     end
 
-    it "wont let me edit items to have attributes that arnt valid" do
+    it "wont let me edit items to have attributes that aren't valid" do
       visit merchant_items_path
       expect(page).to have_link("Edit Gatorskins")
       click_link("Edit Gatorskins")
@@ -136,7 +136,7 @@ RSpec.describe 'As an merchant user', type: :feature do
       fill_in 'Price', with: ("-25")
       fill_in 'Inventory', with: ("-55")
       click_button "Update Item"
-      expect(page).to have_content("Price must be greater than 0 and Inventory must be greater than 0")
+      expect(page).to have_content("Price must be greater than 0 and Inventory must be greater than or equal to 0")
     end
   end
 
