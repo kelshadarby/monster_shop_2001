@@ -12,11 +12,23 @@ RSpec.describe "As an admin", type: :feature do
     it "I see all users in they system, their names are links to user show pages" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin23)
       visit "/admin/users"
+
       expect(page).to have_link(@user.name, :href => "/admin/users/#{@user.id}")
       expect(page).to have_link(@user2.name, :href => "/admin/users/#{@user2.id}")
       expect(page).to have_link(@user3.name, :href => "/admin/users/#{@user3.id}")
     end
 
+    it "I see all users roles and the date they registered" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin23)
+      visit "/admin/users"
+
+      expect(page).to have_content(@user.role)
+      expect(page).to have_content(@user2.role)
+      expect(page).to have_content(@user3.role)
+      expect(page).to have_content(@user3.created_at)
+      expect(page).to have_content(@user2.created_at)
+      expect(page).to have_content(@user.created_at)
+    end
 
     after(:all) do
       ItemOrder.destroy_all
