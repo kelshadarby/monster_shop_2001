@@ -6,23 +6,25 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   namespace :admin do
-    get '/dashboard', to: "dashboard#index"
-    get '/users', to: "users#index"
-    get '/merchants', to: "merchants#index"
-    get '/merchants/:merchant_id', to: "merchants#show"
-    patch '/merchants/:merchant_id', to: "merchants#update"
+    get "/dashboard", to: "dashboard#index"
+    get "/users", to: "users#index"
+    get "/merchants", to: "merchants#index"
+    get "/merchants/:merchant_id", to: "merchants#show"
+    patch "/merchants/:merchant_id", to: "merchants#update"
     patch "/order/:id", to: "order#ship", as: :order_ship
     namespace :merchant do
-      get ':id/items', to: "items#index", as: :items
+      get ":id/items", to: "items#index", as: :items
       get ":id/items/:item_id", to: "items#show", as: :item_show
-      patch ':id/items/:item_id', to: "items#update", as: :item_update
+      patch ":id/items/:item_id", to: "items#update", as: :item_update
+      get ":id/orders/:order_id", to: "orders#show", as: :order_show
     end
   end
 
   namespace :merchant do
-    get '/dashboard', to: "dashboard#index"
-    get '/items', to: "items#index"
-    patch '/items/:id', to: "items#update", as: :item_update
+    get "/dashboard", to: "dashboard#index"
+    get "/items", to: "items#index"
+    patch "/items/:id", to: "items#update", as: :item_update
+    get "/orders/:id", to: "orders#show", as: :order_show
   end
 
   get "/merchants", to: "merchants#index"
