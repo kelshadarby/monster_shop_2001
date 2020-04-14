@@ -1,9 +1,5 @@
 class Merchant::ItemsController < Merchant::BaseController
 
-  def index
-    @merchant = Merchant.find(current_user.merchant.id)
-  end
-
   def update
     item = Item.find(params[:id])
     if item.update(item_params)
@@ -19,4 +15,5 @@ class Merchant::ItemsController < Merchant::BaseController
   def item_params
     params.permit(:name,:description,:price,:inventory,:image, :active?)
   end
+
 end
