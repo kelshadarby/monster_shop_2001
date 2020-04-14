@@ -58,6 +58,13 @@ describe ItemOrder, type: :model do
       expect(item_order_2.unfulfilled?).to eq(false)
     end
 
+    it 'belongs_to_merchant?' do
+      todd = Merchant.create(name: "Todds", address: '123 TOdd Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
+      expect(@item_order_1.belongs_to_merchant_id?(@meg.id)).to eq(true)
+      expect(@item_order_1.belongs_to_merchant_id?(todd.id)).to eq(false)
+    end
+
     after(:each) do
       ItemOrder.destroy_all
       Order.destroy_all
