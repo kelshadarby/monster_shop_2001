@@ -116,6 +116,28 @@ RSpec.describe 'As an merchant user', type: :feature do
       expect(page).to have_content("Skinny Tires")
       expect(page).to have_content("Half the tire at twice the cost :^)")
     end
+
+    it "wont let me edit items to have attributes that arnt valid" do
+      visit merchant_items_path
+      expect(page).to have_link("Edit Gatorskins")
+      click_link("Edit Gatorskins")
+      expect(current_path).to eq("/items/#{@tire.id}/edit")
+
+      fill_in 'Name', with: ""
+      fill_in 'Price', with: 222
+      fill_in 'Description', with: "Half the tire at twice the cost :^)"
+      fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+      fill_in 'Inventory', with: 22
+
+      click_button "Update Item"
+
+      expect(page).to have_content("Name can't be blank")
+      fill_in 'Name', with: "Skinny Wheels"
+      fill_in 'Price', with: ("-25")
+      fill_in 'Inventory', with: ("-55")
+      click_button "Update Item"
+      expect(page).to have_content("Price must be greater than 0 and Inventory must be greater than 0")
+    end
   end
 
   after(:each) do
