@@ -1,4 +1,5 @@
 class Item <ApplicationRecord
+  before_save :set_image
   belongs_to :merchant
   has_many :reviews, dependent: :destroy
   has_many :item_orders
@@ -7,11 +8,9 @@ class Item <ApplicationRecord
   validates_presence_of :name,
                         :description,
                         :price,
-                        :image,
                         :inventory
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
-
 
   def average_review
     reviews.average(:rating)
@@ -51,6 +50,10 @@ class Item <ApplicationRecord
 
   def deletable?
     !orders.any?
+  end
+
+  def set_image
+    self.image = "https://upload.wikimedia.org/wikipedia/commons/1/15/No_image_available_600_x_450.svg" if self.image.blank?
   end
 
 end
