@@ -25,3 +25,8 @@ pull_toy3 = dog_shop.items.create(name: "Pull Toy3", description: "Great pull to
 dog_bone1  = dog_shop.items.create(name: "Dog Bone1", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 dog_bone2  = dog_shop.items.create(name: "Dog Bone2", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 dog_bone3  = dog_shop.items.create(name: "Dog Bone3", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+
+admin = User.create( email_address: 'admin@example.com', password: 'password', role: 'admin', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
+merchant = User.create( email_address: 'merchant@example.com', password: 'password', role: 'merchant', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
+user = User.create( email_address: 'usern@example.com', password: 'password', role: 'merchant', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
+dog_shop.merchants << merchant
