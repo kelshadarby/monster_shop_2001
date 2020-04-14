@@ -12,10 +12,9 @@ RSpec.describe "As an admin", type: :feature do
     it "I see everything a user would see on their show page" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin23)
       visit "/admin/users"
-
       click_link(@user.name)
+
       expect(current_path).to eq("/admin/users/#{@user.id}")
-      save_and_open_page
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.email_address)
       expect(page).to have_content(@user.street_address)
