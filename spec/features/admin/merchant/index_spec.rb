@@ -106,6 +106,20 @@ RSpec.describe "As an admin", type: :feature do
       end
     end
 
+    it "I see the city and state for each merchant" do
+      visit '/admin/merchants'
+      expect(page).to have_content(@meg.city)
+      expect(page).to have_content(@meg.state)
+      expect(page).to have_content(@brian.state)
+      expect(page).to have_content(@meg.city)
+    end
+
+    it "merchants names are links to their show pages" do
+      visit '/admin/merchants'
+      expect(page).to have_link(@meg.name, :href => "/admin/merchants/#{@meg.id}")
+      expect(page).to have_link(@brian.name, :href => "/admin/merchants/#{@brian.id}")
+    end
+
     after(:each) do
       ItemOrder.destroy_all
       Order.destroy_all
