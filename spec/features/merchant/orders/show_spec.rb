@@ -50,6 +50,14 @@ RSpec.describe 'As an merchant user', type: :feature do
       expect(page).to have_content("Fulfilled")
       expect(@bottle.inventory).to eq(20)
     end
+
+    it 'I cannot fulfill orders that I do not have enough inventory to fill' do
+      @order_1_bottle.update(quantity: 25)
+      visit merchant_order_show_path(@order_1)
+
+      expect(current_path).to eq(merchant_order_show_path(@order_1))
+      expect(page).to have_content("Insufficient inventory")
+    end
   end
 
   after(:each) do
