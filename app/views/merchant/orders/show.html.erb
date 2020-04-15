@@ -37,8 +37,10 @@
             <td>
           <% if item_order.fillable?%>
             <p><%= link_to "Fulfill", merchant_item_order_update_path(item_order), method: :patch %></p>
-          <% else %>
+          <% elseif item_order.Fulfilled? %>
             <p>Fulfilled</p>
+          <% else %>
+            "Insufficient inventory"
           <% end %>
           </td>
       </section>
