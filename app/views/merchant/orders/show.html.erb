@@ -34,6 +34,9 @@
           <%=link_to item_order.item.name, item_show_path(item_order.item) %></p></td>
           <td><p><%= number_to_currency(item_order.price)%></p></td>
           <td><p><%= item_order.quantity%></p></td>
+          <% if item_order.fillable?%>
+            <td><p><%= link_to merchant_order_item_update_path(item_order), method: :patch, status: "fulfill" %></p></td>
+          <% end %>
       </section>
       </tr>
     <% end%>
