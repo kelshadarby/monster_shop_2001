@@ -56,7 +56,7 @@ RSpec.describe "As a merchant user (role 2)", type: :feature do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
 
-    visit "/admin/dashboard"
+    visit "/admin"
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
 
     visit "/admin/users"
