@@ -55,7 +55,7 @@ RSpec.describe "As a visitor", type: :feature do
       click_button "Login"
 
       expect(page).to have_content("Logged in as #{@user2.name}")
-      expect(current_path).to eq("/merchant/dashboard")
+      expect(current_path).to eq("/merchant")
     end
 
     it "admin redirect to admin dashboard upon login" do
@@ -127,9 +127,9 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in "Password", with: @user2.password
       click_button "Login"
 
-      expect(current_path).to eq("/merchant/dashboard")
+      expect(current_path).to eq("/merchant")
       visit '/login'
-      expect(current_path).to eq("/merchant/dashboard")
+      expect(current_path).to eq("/merchant")
     end
 
     it "admin already logged in are redirected to their dashboard" do

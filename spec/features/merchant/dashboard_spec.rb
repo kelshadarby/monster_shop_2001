@@ -27,7 +27,7 @@ RSpec.describe 'As an merchant user', type: :feature do
 
   describe 'When I visit the merchant dashboard' do
     it 'I see the name and address for the merchant I work for' do
-      visit merchant_dashboard_path
+      visit merchant_path
       expect(page).to have_content(@meg.name)
       expect(page).to have_content(@meg.address)
       expect(page).to have_content(@meg.city)
@@ -36,7 +36,7 @@ RSpec.describe 'As an merchant user', type: :feature do
     end
 
     it "I see all pending orders containing items I sell" do
-      visit merchant_dashboard_path
+      visit merchant_path
 
       expect(page).to have_link(@order_1.id)
       expect(page).to have_content(@order_1.created_at)
@@ -45,7 +45,7 @@ RSpec.describe 'As an merchant user', type: :feature do
     end
 
     it "I see a link that takes me to /merchant/items" do
-      visit merchant_dashboard_path
+      visit merchant_path
 
       expect(page).to have_link("View My Items")
       click_link("View My Items")
