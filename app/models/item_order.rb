@@ -36,4 +36,8 @@ class ItemOrder <ApplicationRecord
   def belongs_to_merchant_id?(merchant_id)
     item.merchant.id == merchant_id
   end
+
+  def fillable?
+    unfulfilled? && quantity <=item.inventory
+  end
 end
