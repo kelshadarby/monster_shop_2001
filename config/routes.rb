@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   namespace :admin do
-    get "/dashboard", to: "dashboard#index"
+    get "/", to: "dashboard#index"
     get "/users", to: "users#index"
     get "/users/:id", to: "users#show"
     get "/merchants", to: "merchants#index"
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   namespace :merchant do
-    get "/dashboard", to: "dashboard#index"
+    get "/", to: "dashboard#index"
     get "/items", to: "items#index"
     get "/items/new", to: "items#new"
     post "/items", to: "items#create"

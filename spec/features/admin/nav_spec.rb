@@ -15,7 +15,7 @@ RSpec.describe 'As a Admin', type: :feature do
         zip_code: "12345"
       )
       user1.save
-      
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user1)
 
       visit root_path
@@ -30,17 +30,17 @@ RSpec.describe 'As a Admin', type: :feature do
       expect(current_path).to eq(items_path)
 
       click_on 'Dashboard'
-      expect(current_path).to eq(admin_dashboard_path)
-      
+      expect(current_path).to eq(admin_path)
+
       click_on 'Users'
       expect(current_path).to eq(admin_users_path)
-      
+
       click_on 'Profile'
       expect(current_path).to eq(profile_path)
-      
+
       click_on 'Logout'
       expect(current_path).to eq(root_path)
-      
+
       expect(page).to_not have_link('Cart')
 
       expect(page).to_not have_link('Login')
@@ -54,7 +54,7 @@ RSpec.describe 'As a Admin', type: :feature do
       user1 = User.new(
         email_address: "user1@example.com",
         role: 3,
-        password: "password",       
+        password: "password",
         name: "User 1",
         street_address: "123 Example St",
         city: "Userville",
@@ -64,15 +64,15 @@ RSpec.describe 'As a Admin', type: :feature do
       user1.save
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user1)
 
-      visit merchant_dashboard_path
+      visit merchant_path
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
-  
+
     it '/cart routes' do
       user1 = User.new(
         email_address: "user1@example.com",
         role: 3,
-        password: "password",    
+        password: "password",
         name: "User 1",
         street_address: "123 Example St",
         city: "Userville",

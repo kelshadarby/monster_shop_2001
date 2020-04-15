@@ -38,7 +38,7 @@ RSpec.describe "As a merchant user (role 2)", type: :feature do
     expect(current_path).to eq(root_path)
 
     click_link("Dashboard")
-    expect(current_path).to eq(merchant_dashboard_path)
+    expect(current_path).to eq(merchant_path)
   end
   it "cannot view unauthorized admin pages" do
     merchant_user = User.create(
@@ -56,7 +56,7 @@ RSpec.describe "As a merchant user (role 2)", type: :feature do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
 
-    visit "/admin/dashboard"
+    visit "/admin"
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
 
     visit "/admin/users"
