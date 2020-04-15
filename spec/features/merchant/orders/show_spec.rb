@@ -38,6 +38,13 @@ RSpec.describe 'As an merchant user', type: :feature do
       expect(page).to_not have_link(@pull_toy.name, href: item_show_path(@pull_toy))
       expect(page).to_not have_link(@tire.name, href: item_show_path(@tire))
     end
+
+    it 'I can fulfill orders that I have enough inventory to fill' do
+      visit merchant_order_show_path(@order_1)
+      click_link "Fulfill"
+      
+
+    end
   end
 
   after(:each) do
