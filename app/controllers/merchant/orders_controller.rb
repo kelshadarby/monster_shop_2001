@@ -8,6 +8,5 @@ class Merchant::OrdersController < Merchant::BaseController
 
   def order_params
     params.permit(:id, :name,:description,:price,:inventory,:image, :status)
-
   end
 end
