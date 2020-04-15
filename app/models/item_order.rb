@@ -9,7 +9,7 @@ class ItemOrder <ApplicationRecord
   end
 
   def fulfill
-    item.update(inventory: item.inventory - quantity) if unfulfilled?
+    item.update(inventory: item.inventory - quantity) if fillable?
     update(status: "fulfilled")
     order.update(status: "packaged") if items.where(status: "unfulfilled").any?
   end
