@@ -32,4 +32,8 @@ class ItemOrder <ApplicationRecord
   def items
     ItemOrder.where('order_id = ?', order.id)
   end
+
+  def belongs_to_merchant_id?(merchant_id)
+    item.merchant.id == merchant_id
+  end
 end

@@ -5,10 +5,10 @@ RSpec.describe 'As an merchant user', type: :feature do
      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
      @user2 = User.create!( email_address: 'user2@example.com', password: 'password', role: 'default', name: 'User 2', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
      @merchant1 = User.create!( email_address: 'merchant@example.com', password: 'password', role: 2, name: 'merchant', street_address: '123 admin St', city: 'adminville', state: 'State 5', zip_code: '54321')
-     
+
      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
      @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
-     
+
      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
      @bottle = @meg.items.create(name: "WaterBottle", description: "its a water battole", price: 20, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 24)
 
@@ -96,6 +96,47 @@ RSpec.describe 'As an merchant user', type: :feature do
       within "#item-#{taco.id}" do
         expect(page).to have_link("Delete")
       end
+    end
+    it "I see a link I can click to edit items" do
+      visit merchant_items_path
+      expect(page).to have_link("Edit Gatorskins")
+      click_link("Edit Gatorskins")
+      expect(current_path).to eq("/items/#{@tire.id}/edit")
+
+      fill_in 'Name', with: "Skinny Tires"
+      fill_in 'Price', with: 222
+      fill_in 'Description', with: "Half the tire at twice the cost :^)"
+      fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+      fill_in 'Inventory', with: 22
+
+      click_button "Update Item"
+
+      expect(current_path).to eq(merchant_items_path)
+
+      expect(page).to have_content("Skinny Tires")
+      expect(page).to have_content("Half the tire at twice the cost :^)")
+    end
+
+    it "wont let me edit items to have attributes that aren't valid" do
+      visit merchant_items_path
+      expect(page).to have_link("Edit Gatorskins")
+      click_link("Edit Gatorskins")
+      expect(current_path).to eq("/items/#{@tire.id}/edit")
+
+      fill_in 'Name', with: ""
+      fill_in 'Price', with: 222
+      fill_in 'Description', with: "Half the tire at twice the cost :^)"
+      fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+      fill_in 'Inventory', with: 22
+
+      click_button "Update Item"
+
+      expect(page).to have_content("Name can't be blank")
+      fill_in 'Name', with: "Skinny Wheels"
+      fill_in 'Price', with: ("-25")
+      fill_in 'Inventory', with: ("-55")
+      click_button "Update Item"
+      expect(page).to have_content("Price must be greater than 0 and Inventory must be greater than or equal to 0")
     end
   end
 
