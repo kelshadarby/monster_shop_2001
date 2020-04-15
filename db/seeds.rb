@@ -30,5 +30,5 @@ dog_bone3  = dog_shop.items.create(name: "Dog Bone3", description: "They'll love
 
 admin = User.create( email_address: 'admin@example.com', password: 'password', role: 'admin', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
 merchant = User.create( email_address: 'merchant@example.com', password: 'password', role: 'merchant', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
-user = User.create( email_address: 'usern@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
+user = User.create( email_address: 'user@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
 bike_shop.users << merchant
