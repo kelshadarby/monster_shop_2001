@@ -84,14 +84,65 @@ RSpec.describe "As a merchant user", type: :feature do
     expect(page).to have_content("Active")
     expect(page).to_not have_content("Inactive")
     expect(page).to have_link("Deactivate")
-    
+
     expect(page).to have_content("Item #{name} is for sale")
     expect(page).to_not have_content("Item #{name} is not for sale")
+  end
+
+  it "I cannot create an item without a name or description" do
+    visit merchant_items_path
+
+    click_link "New Item"
+
+    expect(current_path).to eq(merchant_items_new_path)
+
+    name = "Pull Toy"
+    description = "Great pull toy!"
+    price = 10
+    image_url = "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg"
+    inventory = 32
+
+    # fill_in :name, with: name
+    fill_in :price, with: price
+    # fill_in :description, with: description
+    fill_in :image, with: image_url
+    fill_in :inventory, with: inventory
+    click_button "Create Item"
+
+    expect(page).to have_content("Name can't be blank and Description can't be blank")
+    expect(find_field("Price").value).to eq(price.to_s)
+    expect(find_field("Image").value).to eq(image_url)
+    expect(find_field("Inventory").value).to eq(inventory.to_s)
+  end
+
+  it "I cannot create an item with a negative price or inventory" do
+    visit merchant_items_path
+
+    click_link "New Item"
+
+    expect(current_path).to eq(merchant_items_new_path)
+
+    name = "Pull Toy"
+    description = "Great pull toy!"
+    price = (0)
+    image_url = "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg"
+    inventory = (-1)
+
+    fill_in :name, with: name
+    fill_in :price, with: price
+    fill_in :description, with: description
+    fill_in :image, with: image_url
+    fill_in :inventory, with: inventory
+    click_button "Create Item"
+
+    expect(page).to have_content("Price must be greater than 0 and Inventory must be greater than or equal to 0")
+    expect(find_field("Price").value).to eq(price.to_s)
+    expect(find_field("Image").value).to eq(image_url)
+    expect(find_field("Inventory").value).to eq(inventory.to_s)
   end
 
   after(:each) do
     User.destroy_all
     Merchant.destroy_all
   end
-
 end

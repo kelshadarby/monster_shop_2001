@@ -5,18 +5,20 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def new
+    @item = Item.new()
   end
 
   def create
     merchant = Merchant.find(current_user.merchant.id)
-    item = merchant.items.new(item_params)
-    if item.save
-      flash[:success] = "#{item.name} has been created."
-      flash[:notice] = "Item #{item.name} is " + item_active_message(item.active?)
+    @item = merchant.items.new(item_params)
+    if @item.save
+      flash[:success] = "#{@item.name} has been created."
+      flash[:notice] = "Item #{@item.name} is " + item_active_message(@item.active?)
+      redirect_to merchant_items_path
     else
-      flash[:error] = item.errors.full_messages.to_sentence
+      flash[:error] = @item.errors.full_messages.to_sentence
+      render :new
     end
-    redirect_to merchant_items_path
   end
 
   def update
