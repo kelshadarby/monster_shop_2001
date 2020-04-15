@@ -58,11 +58,17 @@ describe ItemOrder, type: :model do
       expect(item_order_2.unfulfilled?).to eq(false)
     end
 
-    it 'belongs_to_merchant?' do
+    it 'belongs_to_merchant_id?' do
       todd = Merchant.create(name: "Todds", address: '123 TOdd Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
       expect(@item_order_1.belongs_to_merchant_id?(@meg.id)).to eq(true)
       expect(@item_order_1.belongs_to_merchant_id?(todd.id)).to eq(false)
+    end
+
+    it 'fillable?' do
+      expect(@item_order_1.fillable?).to eq(true)
+      @item_order_1.update(quantity: 13)
+      expect(@item_order_1.fillable?).to eq(false)
     end
 
     after(:each) do
