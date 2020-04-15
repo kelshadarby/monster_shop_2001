@@ -5,10 +5,10 @@ RSpec.describe 'As a visitor', type: :feature do
   describe 'I have a navbar' do
     it 'where I can click on' do
       visit root_path
-      
+
       click_on 'All Merchants'
       expect(current_path).to eq(merchants_path)
-      
+
       click_on 'Home'
       expect(current_path).to eq(root_path)
 
@@ -30,7 +30,7 @@ RSpec.describe 'As a visitor', type: :feature do
       within 'nav' do
         expect(page).to have_content("Cart: 0")
       end
-      
+
       visit items_path
       within 'nav' do
         expect(page).to have_content("Cart: 0")
@@ -40,10 +40,10 @@ RSpec.describe 'As a visitor', type: :feature do
 
   describe 'I am not authorized to visit' do
     it '/admin routes' do
-    visit admin_dashboard_path
+    visit admin_path
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
-  
+
     it '/merchant routes' do
       visit merchant_dashboard_path
       expect(page).to have_content("The page you were looking for doesn't exist (404)")

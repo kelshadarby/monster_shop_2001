@@ -54,7 +54,7 @@ RSpec.describe "As a default user (role 1)", type: :feature do
     visit "/merchant/dashboard"
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
 
-    visit "/admin/dashboard"
+    visit "/admin/"
     expect(page).to have_content("The page you were looking for doesn't exist (404)")
 
     visit "/admin/users"

@@ -77,7 +77,7 @@ RSpec.describe "As a visitor", type: :feature do
       click_button "Login"
 
       expect(page).to have_content("Logged in as #{@user3.name}")
-      expect(current_path).to eq("/admin/dashboard")
+      expect(current_path).to eq("/admin")
     end
 
     it "will not log in with bad credentials" do
@@ -150,9 +150,9 @@ RSpec.describe "As a visitor", type: :feature do
       fill_in "Password", with: @user3.password
       click_button "Login"
 
-      expect(current_path).to eq("/admin/dashboard")
+      expect(current_path).to eq("/admin")
       visit "/login"
-      expect(current_path).to eq("/admin/dashboard")
+      expect(current_path).to eq("/admin")
     end
 
     after(:all) do

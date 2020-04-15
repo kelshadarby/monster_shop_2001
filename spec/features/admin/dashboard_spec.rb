@@ -24,7 +24,7 @@ RSpec.describe 'As an admin user', type: :feature do
 
   describe 'When I visit the admin dashboard' do
     it 'I see all orders in the system with id, date, and user who placed it linking to show page' do
-      visit admin_dashboard_path
+      visit admin_path
 
        expect(find(".packaged-orders")).to appear_before(find(".pending-orders"))
        expect(find(".pending-orders")).to appear_before(find(".shipped-orders"))
@@ -56,7 +56,7 @@ RSpec.describe 'As an admin user', type: :feature do
     end
 
     it 'I can click a button next to every order marked packaged to ship it' do
-      visit admin_dashboard_path
+      visit admin_path
 
       within ".packaged-orders" do
         within "#order-#{@order_2.id}-summary" do
@@ -78,7 +78,7 @@ RSpec.describe 'As an admin user', type: :feature do
       end
     end
   end
-  
+
   after(:each) do
     ItemOrder.destroy_all
     Order.destroy_all
