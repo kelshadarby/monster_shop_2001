@@ -1,0 +1,8 @@
+<h1>Admin User Index</h1>
+
+<%@users.each do |user|%>
+  <%= link_to "#{user.name}", "/admin/users/#{user.id}" %>
+  <p>Role: <%=user.role %> </p>
+  <p>Registered On: <%=user.created_at%></p>
+  <br><br>
+<%end%>
