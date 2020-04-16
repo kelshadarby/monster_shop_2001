@@ -1,15 +1,15 @@
 class Merchant::ItemsController < Merchant::BaseController
 
-  def index
-    @merchant = Merchant.find(current_user.merchant.id)
-  end
-
   def new
     @item = Item.new()
   end
 
   def show
     @merchant = Merchant.find(current_user.merchant.id)
+    @item = Item.find(params[:id])
+  end
+
+  def edit
     @item = Item.find(params[:id])
   end
 
@@ -27,13 +27,14 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def update
-    item = Item.find(params[:id])
-    if item.update(item_params)
-      flash[:success] = "Item #{item.id} is " + item_active_message(item.active?)
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      flash[:success] = "Item #{@item.id} is " + item_active_message(@item.active?)
+      redirect_to merchant_items_path
     else
-      flash[:error] = item.errors.full_messages.to_sentence
+      flash[:error] = @item.errors.full_messages.to_sentence
+      render :edit
     end
-    redirect_to merchant_items_path
   end
 
   def destroy
