@@ -24,9 +24,6 @@ RSpec.describe("Order Creation") do
       click_on "Add To Cart"
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
-
-      visit "/cart"
-      click_on "Checkout"
     end
 
     it 'I can create a new order' do
@@ -42,6 +39,9 @@ RSpec.describe("Order Creation") do
       )
 
      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+
+      visit "/cart"
+      click_on "Checkout"
 
       name = "Bert"
       address = "123 Sesame St."
@@ -112,10 +112,13 @@ RSpec.describe("Order Creation") do
         city: "Userville",
         state: "State 1",
         zip_code: "12345"
-      ) 
+      )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
 
+      visit "/cart"
+      click_on "Checkout"
+      
       name = ""
       address = "123 Sesame St."
       city = "NYC"
@@ -152,7 +155,7 @@ RSpec.describe("Order Creation") do
       fill_in "Email Address", with: @user.email_address
       fill_in "Password", with: @user.password
       click_button "Login"
-    end 
+    end
 
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203)
@@ -180,7 +183,7 @@ RSpec.describe("Order Creation") do
         fill_in :zip, with: @user.zip_code
       end
 
-      click_button "Create Order" 
+      click_button "Create Order"
     end
 
     it 'the order is asscociated with my user account' do

@@ -16,9 +16,11 @@ RSpec.describe 'Cart show' do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
       @items_in_cart = [@paper,@tire,@pencil]
+      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
     end
 
-    it 'Theres a link to checkout' do
+    it 'Theres a link to checkout when logged in' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       visit "/cart"
 
       expect(page).to have_link("Checkout")
@@ -28,11 +30,12 @@ RSpec.describe 'Cart show' do
       expect(current_path).to eq("/orders/new")
     end
 
-    it 'There is not a link to checkout, only to login or register' do
+    it 'There is not a link to checkout, only to login or register when visiting' do
       visit "/cart"
       expect(page).to have_content("You must log in or register to checkout")
       expect(page).to have_link("log in")
       expect(page).to have_link("register")
+      expect(page).to_not have_link("Checkout")
 
       click_link("log in")
       expect(current_path).to eq("/login")
