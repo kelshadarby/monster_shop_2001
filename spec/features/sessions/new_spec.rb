@@ -2,16 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor", type: :feature do
   describe 'When I visit /login' do
-    before(:all) do
-        @user1 = User.new(
-          email_address: "user1@example.com",
-          password: "password",
-          name: "User 1",
-          street_address: "123 Example St",
-          city: "Userville",
-          state: "State 1",
-          zip_code: "12345"
-        )
+    before(:each) do
+        @user1 = User.new( email_address: "user1@example.com", password: "password", name: "User 1", street_address: "123 Example St", city: "Userville", state: "State 1", zip_code: "12345")
         @user1.save
     end
 
@@ -155,7 +147,7 @@ RSpec.describe "As a visitor", type: :feature do
       expect(current_path).to eq("/admin")
     end
 
-    after(:all) do
+    after(:each) do
       User.destroy_all
     end
   end

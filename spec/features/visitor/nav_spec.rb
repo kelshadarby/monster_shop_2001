@@ -48,6 +48,11 @@ RSpec.describe 'As a visitor', type: :feature do
       visit merchant_path
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
+
+    it '/profile' do
+      visit '/profile'
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+    end
   end
 
 end
