@@ -31,7 +31,7 @@ RSpec.describe 'As a Admin', type: :feature do
 
       click_on 'Dashboard'
       expect(current_path).to eq(admin_path)
-      
+
       click_on 'Users'
       expect(current_path).to eq(admin_users_path)
 
@@ -64,7 +64,7 @@ RSpec.describe 'As a Admin', type: :feature do
       user1.save
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user1)
 
-      visit merchant_dashboard_path
+      visit merchant_path
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
 
