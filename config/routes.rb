@@ -28,12 +28,12 @@ Rails.application.routes.draw do
     get "/items/new", to: "items#new"
     post "/items", to: "items#create"
     get "/items/:id", to: "items#show", as: :item_show
+    get "/items/:id/edit", to: "items#edit", as: :item_edit
     patch "/items/:id", to: "items#update", as: :item_update
     delete "/items/:id", to: "items#destroy", as: :item_destroy
     get "/orders/:id", to: "orders#show", as: :order_show
     patch "/itemorders/:id", to: "item_orders#update", as: :item_order_update
   end
-
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
@@ -48,9 +48,7 @@ Rails.application.routes.draw do
 
   get "/items", to: "items#index"
   get "/items/:id", to: "items#show", as: :item_show
-  # get "/items/:id/edit", to: "items#edit", as: :item_edit
-  # patch "/items/:id", to: "items#update", as: :item_update
-  # delete "/items/:id", to: "items#destroy", as: :item_destroy
+
 
   get "/items/:item_id/reviews/new", to: "reviews#new"
   post "/items/:item_id/reviews", to: "reviews#create"
