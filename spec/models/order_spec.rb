@@ -80,6 +80,22 @@ describe Order, type: :model do
       expect(@order_1.status).to eq("shipped")
     end
 
+    it 'set_order_packaged' do
+      expect(@order_1.status).to eq("pending")
+      @item_order_pull_toy.fulfill
+
+      expect(@order_1.status).to eq("pending")
+      @item_order_tire.fulfill
+      
+      expect(@order_1.status).to eq("packaged")
+    end
+
+    it 'canceled?' do
+      @order_1.update(status: "canceled")
+
+      expect(@order_1.canceled?).to eq(true)
+    end
+
     after(:each) do
       ItemOrder.destroy_all
       Order.destroy_all

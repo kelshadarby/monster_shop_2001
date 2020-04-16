@@ -12,7 +12,8 @@ class ItemOrder <ApplicationRecord
     if fillable?
       item.update(inventory: item.inventory - quantity)
       update(status: "fulfilled")
-      order.update(status: "packaged") if items.where(status: "unfulfilled").any?
+      order.set_order_packaged
+      true
     end
   end
   
@@ -29,10 +30,6 @@ class ItemOrder <ApplicationRecord
   def unfulfilled?
     return true if status == "unfulfilled"
     false
-  end
-
-  def items
-    ItemOrder.where('order_id = ?', order.id)
   end
 
   def belongs_to_merchant_id?(merchant_id)
