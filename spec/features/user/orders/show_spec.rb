@@ -50,9 +50,9 @@ RSpec.describe "As a default user", type: :feature do
       expect(page).to have_content(@paper.description)
       expect(page).to have_content(@pencil.description)
 
-      expect(page).to have_content(@tire.image)
-      expect(page).to have_content(@paper.image)
-      expect(page).to have_content(@pencil.image)
+      expect(page).to have_css("img[src*='#{@tire.image}']")
+      expect(page).to have_css("img[src*='#{@paper.image}']")
+      expect(page).to have_css("img[src*='#{@pencil.image}']")
 
       expect(page).to have_content(@item_order_tire.quantity)
       expect(page).to have_content(@item_order_paper.quantity)
