@@ -1,6 +1,6 @@
 <section class="grid-item" id='item-<%=item.id%>'>
   <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-  <h4> <%=link_to "Edit #{item.name}", "/items/#{item.id}/edit" %> </h4>
+  <h4> <%=link_to "Edit #{item.name}", merchant_item_edit_path(item) %> </h4>
   <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
   <%=link_to image_tag(item.image), "/items/#{item.id}", id: "item-image-#{item.id}" %>
   <p> <%= item.description %> </p>
@@ -15,7 +15,6 @@
     <%= link_to "Activate", merchant_item_update_path(item, active?: true), method: :patch if current_user.merchant?%>
     <%= link_to "Activate", admin_merchant_item_update_path(@merchant, item, active?: true), method: :patch if current_user.admin?%>
   <% end %>
-  <% if item.deletable? %>
-    <%= link_to "Delete", path, method: :delete %>
-  <% end %>
+    <%= link_to "Delete", path, method: :delete if item.deletable?%>
+
 </section>
