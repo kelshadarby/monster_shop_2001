@@ -9,9 +9,9 @@ Contributors:
 
 ## Application Description
 
-"Monster Shop" is a fictitious e-commerce platform built for Turing School of Software Design's Back-End Module 2 project (Weeks 4 & 5). This app is a one-stop-shop for items ranging from pet products to bike parts.
+"Monster Shop" is a fictitious e-commerce platform built for Turing School of Software Design's Back-End Module 2 project (Weeks 4 & 5). This app is a one-stop-shop for items ranging from pet products to bike parts. Can't find something you fancy? Custom merchants can be created with any number of items!
 
-Users are allowed to register, login, add items to the cart and place the order. Users employed by a merchant on the site can fulfill part of a users order if that order contains items that they sell. If this all other items have already been fulfilled then an admin user will be able to ship that order.
+Users are able to register, login, add items to the cart and place the order. Users employed by a merchant on the site can fulfill part of a users order if that order contains items that they sell. If this all other items have already been fulfilled then an admin user will be able to ship that order.
 
 This project was built in 10 days and implemented the following:
 
