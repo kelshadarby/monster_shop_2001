@@ -49,7 +49,7 @@
     <% if current_user == nil%>
       <p>You must <%= link_to "log in", "/login"%> or <%= link_to "register", "/register"%> to checkout</p>
     <%end%>
-  <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+  <p><%= link_to "Checkout", "/orders/new", method: :get if current_user%></p>
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>
 <% end %>
