@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'As an merchant user', type: :feature do
   before(:each) do
      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
@@ -25,12 +27,19 @@ RSpec.describe 'As an merchant user', type: :feature do
      @meg.users << @merchant1
      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant1)
   end
+
   describe 'When I visit the merchant items page' do
     it "I see a link I can click to edit items" do
         visit merchant_items_path
         
         click_link("Edit #{@tire.name}")
         expect(current_path).to eq(merchant_item_edit_path(@tire))
+        expect(find_field('Name').value).to eq "Gatorskins"
+        expect(find_field('Price').value).to_not eq '$100.00'
+        expect(find_field('Price').value).to eq '100'
+        expect(find_field('Description').value).to eq "They'll never pop!"
+        expect(find_field('Image').value).to eq("https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588")
+        expect(find_field('Inventory').value).to eq '12'
 
         fill_in 'Name', with: "Skinny Tires"
         fill_in 'Price', with: 222
@@ -44,13 +53,11 @@ RSpec.describe 'As an merchant user', type: :feature do
 
         expect(page).to have_content("Skinny Tires")
         expect(page).to have_content("Half the tire at twice the cost :^)")
+
     end
 
     it "wont let me edit items to have attributes that aren't valid" do
-      visit merchant_items_path
-      
-      click_link("Edit #{@tire.name}")
-      expect(current_path).to eq(merchant_item_edit_path(@tire))
+      visit merchant_item_edit_path(@tire)
 
       fill_in 'Name', with: ""
       fill_in 'Price', with: 222
@@ -66,6 +73,21 @@ RSpec.describe 'As an merchant user', type: :feature do
       fill_in 'Inventory', with: ("-55")
       click_button "Update Item"
       expect(page).to have_content("Price must be greater than 0 and Inventory must be greater than or equal to 0")
+    end
+
+    it 'I get a flash message if I put a float into price or inventory' do
+      visit merchant_item_edit_path(@tire)
+
+      fill_in 'Name', with: "Gatorskins"
+      fill_in 'Price', with: 0.7
+      fill_in 'Description', with: "They'll never pop!"
+      fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+      fill_in 'Inventory', with: 0.5
+
+      click_button "Update Item"
+
+      expect(page).to have_content("Price must be an integer and Inventory must be an integer")
+      expect(page).to have_button("Update Item")
     end
   end
   
