@@ -70,6 +70,27 @@ RSpec.describe "As a Visitor" do
         expect(page).to have_content("Name can't be blank and Description can't be blank")
         expect(page).to have_button("Update Item")
       end
+
+      it 'I get a flash message if I put a float into price or inventory' do
+        @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+        @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+        visit "/items/#{@tire.id}"
+
+        click_on "Edit Item"
+
+        fill_in 'Name', with: "Gatorskins"
+        fill_in 'Price', with: 0.7
+        fill_in 'Description', with: "They'll never pop!"
+        fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+        fill_in 'Inventory', with: 0.5
+
+        click_button "Update Item"
+
+        expect(page).to have_content("Price must be an integer and Inventory must be an integer")
+        expect(page).to have_button("Update Item")
+      end
+
     end
   end
 end
