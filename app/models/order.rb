@@ -42,6 +42,10 @@ class Order <ApplicationRecord
     return false if item_orders.where(status: "unfulfilled").any?
     self.update(status: "shipped")
   end
+
+  def shipped?
+    status == "shipped"
+  end
   
 
 end

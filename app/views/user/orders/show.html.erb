@@ -22,7 +22,7 @@
     </tr>
   <% end %>
 </table>
-<%= link_to "Cancel Order", order_cancel_path(@order), method: :patch %>
+<%= link_to "Cancel Order", order_cancel_path(@order), method: :patch unless @order.shipped? %>
 <section class="order-summary">
   <p>Total Quantity: <%=@order.total_items%></p>
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
