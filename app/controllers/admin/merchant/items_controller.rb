@@ -1,5 +1,5 @@
 class Admin::Merchant::ItemsController < Admin::BaseController
-  
+
   def index
     @merchant = Merchant.find(params[:id])
   end
@@ -15,7 +15,14 @@ class Admin::Merchant::ItemsController < Admin::BaseController
     redirect_to admin_merchant_items_path
   end
 
-    def item_params
+  def destroy
+    item = Item.find(params[:id])
+    Review.where(item_id: item.id).destroy_all
+    item.destroy
+    redirect_to "/items"
+  end
+
+  def item_params
     params.permit(:name,:description,:price,:inventory,:image, :active?)
   end
 
