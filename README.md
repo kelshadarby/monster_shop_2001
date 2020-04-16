@@ -139,7 +139,6 @@ __Visitor__
 
 ## User Views
 
-____
 ### Admins
 
 Not viewable by any other users
