@@ -1,9 +1,5 @@
 # [Monster Shop](https://the-best-monster-shop.herokuapp.com/ "Official Monster Shop App")
 
-Turing School of Software Design
-
-Back-End Engineering - Module 2 - Weeks 4 & 5
-
 Contributors:
 
 [Fred Rondina](https://github.com/fredrondina96 "Fred Rondina's GitHub Profile"),
@@ -14,7 +10,7 @@ Contributors:
 ____
 ## Application Description
 
-"Monster Shop" is a fictitious e-commerce platform built for a project at Turing School of Software Design. This app is a one-stop-shop for items ranging from pet products to bike parts.
+"Monster Shop" is a fictitious e-commerce platform built for Turing School of Software Design's Back-End Module 2 project (Weeks 4 & 5). This app is a one-stop-shop for items ranging from pet products to bike parts.
 
 Users are allowed to register, login, add items to the cart and place the order. Users employed by a merchant on the site can fulfill part of a users order if that order contains items that they sell. If this all other items have already been fulfilled then an admin user will be able to ship that order.
 
