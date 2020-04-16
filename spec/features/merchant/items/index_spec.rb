@@ -95,7 +95,11 @@ RSpec.describe 'As an merchant user', type: :feature do
 
       within "#item-#{taco.id}" do
         expect(page).to have_link("Delete")
+        click_link "Delete"
       end
+
+      expect(current_path).to eq(merchant_items_path)
+      expect(page).to_not have_content(taco.name)
     end
     it "I see a link I can click to edit items" do
       visit merchant_items_path
