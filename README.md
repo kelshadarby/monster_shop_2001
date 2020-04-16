@@ -48,97 +48,98 @@ Ruby 2.6.x
 Bundler version 2.0.1
 ```
 
-#### Testing
-To run the entire test suite on your local machine run the following command
-
-Note: You may need to prepend this command with `bundle exec`
+### Testing
+__To run the entire test suite on your local machine run the following command__
 
 ```
 $ rspec
 ```
 
-To run a specific test file run the following command
+Note: You may need to prepend this command with `bundle exec`
 
-Notes:
-- Your file path may look something like `spec/features/items/index_spec.rb`
+__To run a specific test file run the following command__
+
 
 ```
 $ rspec <file_path>
 ```
 
-To run a specific test within a test file run the following command
+Note: Your file path may look something like `spec/features/items/index_spec.rb`
 
-Notes:
-- Your file path may look something like `spec/features/items/index_spec.rb`
-- Your line number should be the line of the beginning of the `it` block
-    - Example: `spec/features/items/index_spec.rb:15`
+__To run a specific test within a test file run the following command__
 
 ```
 $ rspec <file_path>:<line_number>
 ```
 
-#### Authentication and Authorization
+Notes:
+- Your file path may look something like `spec/features/items/index_spec.rb`
+- Your line number should be the line of the beginning of the `it` block
+- Example: `spec/features/items/index_spec.rb:15`
+
+### Authentication and Authorization
 This project allows different types of users to do different actions.
 
 They are laid out as follows:
-- Admin User
-  - _Permissions_:
-    - View/edit their profile
-    - View all orders in the system sorted by order status
-    - Activating and deactivating merchants
-    - Ship orders
-    - Add edit and remove items
-  - _Restrictions_:
-    - Create and place orders
-    - Cannot use their powers for evil
-  - _Sample Credentials:_
-  ```
-  username: admin_user@example.com
-  password: admin_password
-  ```
 
-- Merchant User
-  - _Permissions_:
-    - View/edit their profile
-    - Fulfill orders that contain their items
-    - Edit and delete their items
-    - Add a new item to their inventory
-  - _Restrictions_:
-    - Fulfill items in orders that are not that merchants items
-    - Fulfill orders if their inventory of that item is not large enough
-    - Create, update or delete any items that are not their own
-  - _Sample Credentials:_
-  ```
-  username: merchant_user@example.com
-  password: merchant_password
-  ```
+__Admin User__
+- _Permissions_:
+  - View/edit their profile
+  - View all orders in the system sorted by order status
+  - Activating and deactivating merchants
+  - Ship orders
+  - Add edit and remove items
+- _Restrictions_:
+  - Create and place orders
+  - Cannot use their powers for evil
+- _Sample Credentials:_
+```
+username: admin_user@example.com
+password: admin_password
+```
 
-- Default User
-  - _Permissions_:
-    - Add items to a cart
-    - Place the order
-    - View/edit their profile
-  - _Restrictions_:
-    - View any admin or merchant specific pages
-  - _Sample Credentials:_
-  ```
-  username: default_user@example.com
-  password: default_user_password
-  ```
+__Merchant User__
+- _Permissions_:
+  - View/edit their profile
+  - Fulfill orders that contain their items
+  - Edit and delete their items
+  - Add a new item to their inventory
+- _Restrictions_:
+  - Fulfill items in orders that are not that merchants items
+  - Fulfill orders if their inventory of that item is not large enough
+  - Create, update or delete any items that are not their own
+- _Sample Credentials:_
+```
+username: merchant_user@example.com
+password: merchant_password
+```
 
-- Visitor User
-  - _Permissions_:
-    - Add items to the cart
-    - View all items
-  - _Restrictions_:
-    - Checkout with their cart (they must login first)
-    - View any admin or merchant specific pages
-  - There are no sample credentials
+__Default User__
+- _Permissions_:
+  - Add items to a cart
+  - Place the order
+  - View/edit their profile
+- _Restrictions_:
+  - View any admin or merchant specific pages
+- _Sample Credentials:_
+```
+username: default_user@example.com
+password: default_user_password
+```
+
+__Visitor__
+- _Permissions_:
+  - Add items to the cart
+  - View all items
+- _Restrictions_:
+  - Checkout with their cart (they must login first)
+  - View any admin or merchant specific pages
+- There are no sample credentials
 
 
 ## User Views
 
-##### Admins
+### Admins
 
 Not viewable by any other users
 
@@ -150,7 +151,7 @@ Admin profile
 ![Admin Profile Page](https://user-images.githubusercontent.com/55028065/79512345-78016700-7ffe-11ea-9298-39b0bcb05527.png "Admin Profile Page")
 
 
-##### Merchants
+### Merchants
 
 Also Viewable By:
   - Admin Users
@@ -173,7 +174,7 @@ Editing a Merchant's Items
 Adding a New Item
 ![New Item Page](https://user-images.githubusercontent.com/55028065/79512353-7afc5780-7ffe-11ea-9661-e7ecff15df7c.png "New Item Page")
 
-##### Default User
+### Default User
 
 Also Viewable By:
   - Merchant Users
@@ -181,7 +182,7 @@ Also Viewable By:
 Cart View as a Registered User
 ![Cart View Page As Registered User](https://user-images.githubusercontent.com/55028065/79513377-ecd5a080-8000-11ea-8c4f-2f6eab09e850.png "Cart View Page As Registered User")
 
-##### Visitor (Not Registered)
+### Visitor (Not Registered)
 
 Also Viewable By:
   - Default Users
