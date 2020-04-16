@@ -40,7 +40,7 @@ $ rake db:migrate
 $ rake db:seed
 ```
 
-#### Dependencies
+## Dependencies
 You must have the following to run this project
 ```
 Rails 5.1.7
@@ -48,7 +48,7 @@ Ruby 2.6.x
 Bundler version 2.0.1
 ```
 
-### Testing
+## Testing
 __To run the entire test suite on your local machine run the following command__
 
 ```
@@ -77,7 +77,7 @@ Notes:
 - Your line number should be the line of the beginning of the `it` block
 - Example: `spec/features/items/index_spec.rb:15`
 
-### Authentication and Authorization
+## Authentication and Authorization
 This project allows different types of users to do different actions.
 
 They are laid out as follows:
