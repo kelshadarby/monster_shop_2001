@@ -16,5 +16,4 @@
     <%= link_to "Activate", admin_merchant_item_update_path(@merchant, item, active?: true), method: :patch if current_user.admin?%>
   <% end %>
     <%= link_to "Delete", path, method: :delete if item.deletable?%>
-
 </section>
