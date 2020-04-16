@@ -1,25 +1,21 @@
-<section class="grid-container item-list">
-  <% @merchant.items.each do |item| %>
-    <section class="grid-item" id='item-<%=item.id%>'>
-      <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-      <h4> <%=link_to "Edit #{item.name}", "/items/#{item.id}/edit" %> </h4>
-      <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-      <%=link_to image_tag(item.image), "/items/#{item.id}", id: "item-image-#{item.id}" %>
-      <p> <%= item.description %> </p>
-      <p>Price: <%=number_to_currency(item.price) %> </p>
-      <p>Inventory: <%= item.inventory %> </p>
-      <% if item.active? %>
-        <p>Active</p>
-        <%= link_to "Deactivate", merchant_item_update_path(item, active?: false), method: :patch if current_user.merchant?%>
-        <%= link_to "Deactivate", admin_merchant_item_update_path(@merchant, item, active?: false), method: :patch if current_user.admin?%>
-      <% else %>
-        <p>Inactive</p>
-        <%= link_to "Activate", merchant_item_update_path(item, active?: true), method: :patch if current_user.merchant?%>
-        <%= link_to "Activate", admin_merchant_item_update_path(@merchant, item, active?: true), method: :patch if current_user.admin?%>
-      <% end %>
-      <% if item.deletable? %>
-        <%= link_to "Delete",  item_destroy_path(item) %>
-      <% end %>
-    </section>
+<section class="grid-item" id='item-<%=item.id%>'>
+  <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
+  <h4> <%=link_to "Edit #{item.name}", "/items/#{item.id}/edit" %> </h4>
+  <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+  <%=link_to image_tag(item.image), "/items/#{item.id}", id: "item-image-#{item.id}" %>
+  <p> <%= item.description %> </p>
+  <p>Price: <%=number_to_currency(item.price) %> </p>
+  <p>Inventory: <%= item.inventory %> </p>
+  <% if item.active? %>
+    <p>Active</p>
+    <%= link_to "Deactivate", merchant_item_update_path(item, active?: false), method: :patch if current_user.merchant?%>
+    <%= link_to "Deactivate", admin_merchant_item_update_path(@merchant, item, active?: false), method: :patch if current_user.admin?%>
+  <% else %>
+    <p>Inactive</p>
+    <%= link_to "Activate", merchant_item_update_path(item, active?: true), method: :patch if current_user.merchant?%>
+    <%= link_to "Activate", admin_merchant_item_update_path(@merchant, item, active?: true), method: :patch if current_user.admin?%>
+  <% end %>
+  <% if item.deletable? %>
+    <%= link_to "Delete", path, method: :delete %>
   <% end %>
 </section>

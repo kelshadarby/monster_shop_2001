@@ -1,2 +1,6 @@
-<%= render partial: '/partials/item_index' %>
+<section class="grid-container item-list">
+  <% @merchant.items.each do |item| %>
+    <%= render partial: '/partials/item_index', locals: {item: item, path: merchant_item_destroy_path(item) } %>
+  <% end %>
+</section>
 <%= link_to "New Item", merchant_items_new_path %>
