@@ -7,7 +7,6 @@ Contributors:
 [Brian Greeson](https://github.com/brian-greeson "Brian Greeson's GitHub Profile")
 
 
-____
 ## Application Description
 
 "Monster Shop" is a fictitious e-commerce platform built for Turing School of Software Design's Back-End Module 2 project (Weeks 4 & 5). This app is a one-stop-shop for items ranging from pet products to bike parts.
@@ -28,7 +27,7 @@ Gems:
 - Shoulda Matchers
 - Capybara
 
-____
+
 ## Implementation
 
 - Clone this repo onto your local machine
@@ -136,13 +135,8 @@ They are laid out as follows:
     - View any admin or merchant specific pages
   - There are no sample credentials
 
-____
-#### User Views
 
-
-
-
-
+## User Views
 
 ##### Admins
 
@@ -201,6 +195,6 @@ Also Viewable By:
 
 ![Cart View Page](https://user-images.githubusercontent.com/55028065/79512322-6f109580-7ffe-11ea-8d06-dba03c2aba2f.png "Cart View Page")
 
-____
+
 ## Database Design
 ![Database Diagram](https://user-images.githubusercontent.com/55028065/79511093-d711ac80-7ffb-11ea-88cb-1caa1884652c.png "Monster Shop Database Layout")
