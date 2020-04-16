@@ -36,6 +36,7 @@ class ItemsController<ApplicationController
     @item = Item.find(params[:id])
     @item.update(item_params)
     if @item.save
+      flash[:success] = "#{@item.name} has been updated successfully"
       dynamic_redirect
     else
       flash.now[:error] = @item.errors.full_messages.to_sentence
