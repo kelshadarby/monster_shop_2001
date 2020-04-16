@@ -139,6 +139,7 @@ __Visitor__
 
 ## User Views
 
+____
 ### Admins
 
 Not viewable by any other users
@@ -150,7 +151,7 @@ All orders
 Admin profile
 ![Admin Profile Page](https://user-images.githubusercontent.com/55028065/79512345-78016700-7ffe-11ea-9298-39b0bcb05527.png "Admin Profile Page")
 
-
+____
 ### Merchants
 
 Also Viewable By:
@@ -174,6 +175,7 @@ Editing a Merchant's Items
 Adding a New Item
 ![New Item Page](https://user-images.githubusercontent.com/55028065/79512353-7afc5780-7ffe-11ea-9661-e7ecff15df7c.png "New Item Page")
 
+____
 ### Default User
 
 Also Viewable By:
@@ -182,6 +184,7 @@ Also Viewable By:
 Cart View as a Registered User
 ![Cart View Page As Registered User](https://user-images.githubusercontent.com/55028065/79513377-ecd5a080-8000-11ea-8c4f-2f6eab09e850.png "Cart View Page As Registered User")
 
+____
 ### Visitor (Not Registered)
 
 Also Viewable By:
