@@ -28,10 +28,9 @@ RSpec.describe 'As an merchant user', type: :feature do
   describe 'When I visit the merchant items page' do
     it "I see a link I can click to edit items" do
         visit merchant_items_path
-        save_and_open_page
-        expect(page).to have_link("Edit Gatorskins")
-        click_link("Edit Gatorskins")
-        expect(current_path).to eq(merchant_item_update_path(@tire))
+        
+        click_link("Edit #{@tire.name}")
+        expect(current_path).to eq(merchant_item_edit_path(@tire))
 
         fill_in 'Name', with: "Skinny Tires"
         fill_in 'Price', with: 222
@@ -49,9 +48,9 @@ RSpec.describe 'As an merchant user', type: :feature do
 
     it "wont let me edit items to have attributes that aren't valid" do
       visit merchant_items_path
-      expect(page).to have_link("Edit Gatorskins")
-      click_link("Edit Gatorskins")
-      expect(current_path).to eq("/items/#{@tire.id}/edit")
+      
+      click_link("Edit #{@tire.name}")
+      expect(current_path).to eq(merchant_item_edit_path(@tire))
 
       fill_in 'Name', with: ""
       fill_in 'Price', with: 222
