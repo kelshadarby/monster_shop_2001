@@ -117,5 +117,16 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_content(@pull_toy.name)
       expect(page).to_not have_content(@dog_bone.name)
     end
+
+    it 'I cannot edit items' do
+      visit '/items'
+      
+      expect(page).to_not have_content("Edit #{@tire.name}")
+    end
+    it 'I cannot delete items' do
+      visit '/items'
+      
+      expect(page).to_not have_content("Delete")
+    end
   end
 end
