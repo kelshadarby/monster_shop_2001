@@ -1,12 +1,13 @@
 # [Monster Shop](https://the-best-monster-shop.herokuapp.com/ "Official Monster Shop App")
 
+Turing School of Software Design
+
+Back-End Engineering - Module 2 - Weeks 4 & 5
+
 [Fred Rondina](https://github.com/fredrondina96 "Fred Rondina's GitHub Profile"),
 [Kelsha Darby](https://github.com/kelshadarby "Kelsha Darby's GitHub Profile") &
 [Brian Greeson](https://github.com/brian-greeson "Brian Greeson's GitHub Profile")
 
-    Turing School of Software Design
-
-    Back-End Engineering - Module 2 - Weeks 4 & 5
 
 ____
 ## Application Description
