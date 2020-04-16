@@ -39,6 +39,7 @@ RSpec.describe "As a Visitor" do
 
         click_button "Update Item"
 
+        expect(page).to have_content("GatorSkins has been updated successfully")
         expect(current_path).to eq("/items/#{@tire.id}")
         expect(page).to have_content("GatorSkins")
         expect(page).to_not have_content("Gatorskins")
