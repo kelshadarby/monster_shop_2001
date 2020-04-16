@@ -16,7 +16,7 @@ class Merchant::ItemsController < Merchant::BaseController
       flash[:notice] = "Item #{@item.name} is " + item_active_message(@item.active?)
       redirect_to merchant_items_path
     else
-      flash[:error] = @item.errors.full_messages.to_sentence
+      flash.now[:error] = @item.errors.full_messages.to_sentence
       render :new
     end
   end
