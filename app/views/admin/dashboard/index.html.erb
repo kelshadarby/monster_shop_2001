@@ -20,8 +20,8 @@
     <h3>Pending Orders</h3>
       <% @pending_orders.each do |order| %>
         <article id="order-<%= order.id %>-summary">
-            <h4>Order: <%=order.id%></h4>
-            <p>Placed By: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+            <h4><%= link_to "Order: #{order.id}", order_show_path(order) %></h4>
+            <p><%= link_to "Placed By: #{order.user_id}", "/admin/users/#{order.user_id}"%></p>
             <p>Ordered Placed At: <%=order.created_at%></p>
           </article>
       <%end%>
@@ -35,8 +35,8 @@
     <h3>Shipped Orders</h3>
       <% @shipped_orders.each do |order| %>
         <article id="order-<%= order.id %>-summary">
-          <h4>Order: <%=order.id%></h4>
-          <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+          <h4><%= link_to "Order: #{order.id}", order_show_path(order) %></h4>
+          <p><%= link_to "Placed By: #{order.user_id}", "/admin/users/#{order.user_id}"%></p>
           <p>Ordered Placed At: <%=order.created_at%></p>
           </article>
       <%end%>
@@ -50,8 +50,8 @@
     <h3>Canceled Orders</h3>
       <% @canceled_orders.each do |order| %>
         <article id="order-<%= order.id %>-summary">
-          <h4>Order: <%=order.id%></h4>
-          <p>Placed By User: <%= link_to "#{order.user_id}", "/admin/users/#{order.user_id}"%></p>
+          <h4><%= link_to "Order: #{order.id}", order_show_path(order) %></h4>
+          <p><%= link_to "Placed By: #{order.user_id}", "/admin/users/#{order.user_id}"%></p>
           <p>Ordered Placed At: <%=order.created_at%></p>
           </article>
       <%end%>
