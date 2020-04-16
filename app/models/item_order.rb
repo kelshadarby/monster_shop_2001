@@ -32,12 +32,6 @@ class ItemOrder <ApplicationRecord
     false
   end
 
-  def items
-    binding.pry
-    order.order_items
-    # ItemOrder.where('order_id = ?', order.id)
-  end
-
   def belongs_to_merchant_id?(merchant_id)
     item.merchant.id == merchant_id
   end
