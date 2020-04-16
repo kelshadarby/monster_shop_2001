@@ -7,8 +7,7 @@
     <p>Last Updated At: <%=order.updated_at%></p>
     <p>Total Items: <%=order.total_items%></p>
     <p>Status: <%=order.status.capitalize %></p>
-    <p>Grand Total: $<%=order.grandtotal.round(2)%></p>
+    <p>Grand Total: <%=number_to_currency(order.grandtotal)%></p>
     <br>
   </section>
 <%end%>
-
