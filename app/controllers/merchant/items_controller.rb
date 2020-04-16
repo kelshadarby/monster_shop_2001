@@ -40,7 +40,11 @@ class Merchant::ItemsController < Merchant::BaseController
   def destroy
     item = Item.find(params[:id])
     Review.where(item_id: item.id).destroy_all
-    item.destroy
+    if item.destroy
+      flash[:success] = "Item #{item.id} has been deleted"
+    else
+      flash[:error] = item.errors.full_messages.to_sentence
+    end
     redirect_to merchant_items_path
   end
 
