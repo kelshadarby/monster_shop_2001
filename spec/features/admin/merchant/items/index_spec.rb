@@ -94,7 +94,7 @@ RSpec.describe 'As an admin user', type: :feature do
       end
 
       within "#item-#{taco.id}" do
-        expect(page).to have_link("Delete")
+        click_link("Delete")
       end
     end
   end
