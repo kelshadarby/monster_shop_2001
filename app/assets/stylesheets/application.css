@@ -32,6 +32,10 @@ ul{
 img{
   width: 50%;
 }
+img.thumbnail{
+  height: 50px;
+  width: auto;
+}
 
 #cart-image{
   width:50px;
