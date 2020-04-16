@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'As an merchant user', type: :feature do
+RSpec.describe 'As a merchant', type: :feature do
+  describe 'when I visit an item show page' do
   before(:each) do
      @user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
      @user2 = User.create!( email_address: 'user2@example.com', password: 'password', role: 'default', name: 'User 2', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
@@ -9,8 +10,12 @@ RSpec.describe 'As an merchant user', type: :feature do
      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
      @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
+     @taco = @meg.items.create(name: "Taco", description: "Its a Taco", price: 10, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 1)
      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
      @bottle = @meg.items.create(name: "WaterBottle", description: "its a water battole", price: 20, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 24)
+
+      @review_1 = @taco.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
+
 
      @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
      @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
@@ -27,86 +32,35 @@ RSpec.describe 'As an merchant user', type: :feature do
      @meg.users << @merchant1
      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant1)
   end
+    
+    it 'I can delete an item' do
+      bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      chain = bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
 
-  describe 'When I visit the merchant items page' do
-    it 'I see all my items' do
-      visit merchant_items_path
-      within "#item-#{@tire.id}" do
-        expect(page).to have_content(@tire.name)
-        expect(page).to have_content(@tire.description)
-        expect(page).to have_content(@tire.price)
-        expect(page).to have_css("img[src*='#{@tire.image}']")
-        expect(page).to have_content("Active")
-        expect(page).to have_content(@tire.inventory)
-        expect(page).to have_link("Deactivate")
-      end
+      visit merchant_item_show_path(@taco)
 
-      within "#item-#{@bottle.id}" do
-        expect(page).to have_content(@bottle.name)
-        expect(page).to have_content(@bottle.description)
-        expect(page).to have_content(@bottle.price)
-        expect(page).to have_css("img[src*='#{@bottle.image}']")
-        expect(page).to have_content("Active")
-        expect(page).to have_content(@bottle.inventory)
-        expect(page).to have_link("Deactivate")
-      end
-    end
-
-    it 'I click on deactivate and the item is deactivated' do
-      visit merchant_items_path
-
-      within "#item-#{@tire.id}" do
-        click_link "Deactivate"
-      end
-      expect(current_path).to eq(merchant_items_path)
-      expect(page).to have_content("Item #{@tire.id} is not for sale")
-      within "#item-#{@tire.id}" do
-        expect(page).to_not have_content("Active")
-        expect(page).to have_content("Inactive")
-      end
-    end
-
-    it 'I click on deactivate and the item is activated' do
-      visit merchant_items_path
-
-      within "#item-#{@tire.id}" do
-        click_link "Deactivate"
-        click_link "Activate"
-      end
-      expect(current_path).to eq(merchant_items_path)
-      expect(page).to have_content("Item #{@tire.id} is for sale")
-      within "#item-#{@tire.id}" do
-        expect(page).to_not have_content("Inactive")
-        expect(page).to have_content("Active")
-      end
-    end
-
-    it 'I can delete never ordered items' do
-      taco = @meg.items.create(name: "taco", description: "its a taco", price: 1, image: "https://upload.wikimedia.org/wikipedia/commons/3/3a/NCI_Visuals_Food_Taco.jpg", inventory: 5000)
-      visit merchant_items_path
-
-      within "#item-#{@tire.id}" do
-        expect(page).to_not have_link("Delete")
-      end
-
-      within "#item-#{@bottle.id}" do
-        expect(page).to_not have_link("Delete")
-      end
-
-      within "#item-#{taco.id}" do
-        expect(page).to have_link("Delete")
-        click_link "Delete"
-      end
+      expect(page).to have_link("Delete Item")
+      click_on "Delete Item"
 
       expect(current_path).to eq(merchant_items_path)
-      expect(page).to_not have_content(taco.name)
+      expect("item-#{chain.id}").to be_present
     end
-  end
-  
-  after(:each) do
-    ItemOrder.destroy_all
-    Order.destroy_all
-    User.destroy_all
-    Merchant.destroy_all
+
+    it 'I can delete items and it deletes reviews' do
+       visit merchant_item_show_path(@taco)
+
+      click_on "Delete Item"
+      expect(Review.where(id:@review_1.id)).to be_empty
+    end
+
+    it 'I can not delete items with orders' do 
+      visit merchant_item_show_path(@tire)
+ 
+      expect(page).to_not have_link("Delete Item")
+    end
+    
+    after(:all) do
+      User.destroy_all
+    end
   end
 end
