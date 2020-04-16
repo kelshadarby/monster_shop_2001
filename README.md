@@ -158,7 +158,7 @@ Also Viewable By:
 Merchant Address & All Pending Orders
 ![Merchant Dashboard](https://user-images.githubusercontent.com/55028065/79512325-7041c280-7ffe-11ea-8520-32faf1267cc2.png "Merchant Dashboard")
 
-Merchant Profile
+Merchant Profile (Admins cannot view this page)
 ![Merchant User Profile](https://user-images.githubusercontent.com/55028065/79512342-76d03a00-7ffe-11ea-9b56-1d5404be4899.png "Merchant User Profile View")
 
 Order Information (Only their items are shown)
@@ -167,10 +167,10 @@ Order Information (Only their items are shown)
 Merchant's Items
 ![Merchant's Items](https://user-images.githubusercontent.com/55028065/79512347-79329400-7ffe-11ea-9ca8-4cb96adfd16a.png "Merchant's Items")
 
-Editing a Merchant's Items
+Editing a Merchant's Items (Admins cannot view this page)
 ![Merchant Item Edit](https://user-images.githubusercontent.com/55028065/79512352-7a63c100-7ffe-11ea-8767-76085388e353.png "Merchant Item Update Page")
 
-Adding a New Item
+Adding a New Item (Admins cannot view this page)
 ![New Item Page](https://user-images.githubusercontent.com/55028065/79512353-7afc5780-7ffe-11ea-9661-e7ecff15df7c.png "New Item Page")
 
 ____
