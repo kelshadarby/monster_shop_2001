@@ -23,6 +23,9 @@ RSpec.describe "As a merchant user", type: :feature do
     price = 10
     image_url = "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg"
     inventory = 32
+    placeholder = "https://upload.wikimedia.org/wikipedia/commons/1/15/No_image_available_600_x_450.svg"
+
+    expect(find_field("Image").value).to_not eq(placeholder)
 
     fill_in :name, with: name
     fill_in :price, with: price
