@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Items Index Page" do
-  describe "When I visit the items index page" do
+  describe "As a visitor When I visit the items index page" do
     before(:each) do
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
@@ -47,16 +47,7 @@ RSpec.describe "Items Index Page" do
     end
 
     it 'I see an area with statistics' do
-      user = User.create!(
-        email_address: 'user1@example.com',
-        password: 'password',
-        role: 'default',
-        name: 'User 1',
-        street_address: '123 Example St',
-        city: 'Userville',
-        state: 'State 1',
-        zip_code: '12345'
-      )
+      user = User.create!( email_address: 'user1@example.com', password: 'password', role: 'default', name: 'User 1', street_address: '123 Example St', city: 'Userville', state: 'State 1', zip_code: '12345')
       pull_toy1 = @brian.items.create(name: "Pull Toy1", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
       pull_toy2 = @brian.items.create(name: "Pull Toy2", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
       pull_toy3 = @brian.items.create(name: "Pull Toy3", description: "Great pull toy!", price: 10, image: "https://tinyurl.com/rzhm3qd", inventory: 32)
@@ -125,6 +116,17 @@ RSpec.describe "Items Index Page" do
 
       expect(page).to have_content(@pull_toy.name)
       expect(page).to_not have_content(@dog_bone.name)
+    end
+
+    it 'I cannot edit items' do
+      visit '/items'
+      
+      expect(page).to_not have_content("Edit #{@tire.name}")
+    end
+    it 'I cannot delete items' do
+      visit '/items'
+      
+      expect(page).to_not have_content("Delete")
     end
   end
 end

@@ -96,6 +96,19 @@ describe Order, type: :model do
       expect(@order_1.canceled?).to eq(true)
     end
 
+    it 'cancelable?' do
+
+      expect(@order_1.cancelable?).to eq(true)
+
+      @order_1.update(status: "canceled")
+      
+      expect(@order_1.cancelable?).to eq(false)
+      
+      @order_1.update(status: "shipped")
+      
+      expect(@order_1.cancelable?).to eq(false)
+    end
+
     after(:each) do
       ItemOrder.destroy_all
       Order.destroy_all

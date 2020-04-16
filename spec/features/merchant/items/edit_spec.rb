@@ -29,84 +29,72 @@ RSpec.describe 'As an merchant user', type: :feature do
   end
 
   describe 'When I visit the merchant items page' do
-    it 'I see all my items' do
-      visit merchant_items_path
-      within "#item-#{@tire.id}" do
-        expect(page).to have_content(@tire.name)
-        expect(page).to have_content(@tire.description)
-        expect(page).to have_content(@tire.price)
-        expect(page).to have_css("img[src*='#{@tire.image}']")
-        expect(page).to have_content("Active")
-        expect(page).to have_content(@tire.inventory)
-        expect(page).to have_link("Deactivate")
-      end
+    it "I see a link I can click to edit items" do
+        visit merchant_items_path
+        
+        click_link("Edit #{@tire.name}")
+        expect(current_path).to eq(merchant_item_edit_path(@tire))
+        expect(find_field('Name').value).to eq "Gatorskins"
+        expect(find_field('Price').value).to_not eq '$100.00'
+        expect(find_field('Price').value).to eq '100'
+        expect(find_field('Description').value).to eq "They'll never pop!"
+        expect(find_field('Image').value).to eq("https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588")
+        expect(find_field('Inventory').value).to eq '12'
 
-      within "#item-#{@bottle.id}" do
-        expect(page).to have_content(@bottle.name)
-        expect(page).to have_content(@bottle.description)
-        expect(page).to have_content(@bottle.price)
-        expect(page).to have_css("img[src*='#{@bottle.image}']")
-        expect(page).to have_content("Active")
-        expect(page).to have_content(@bottle.inventory)
-        expect(page).to have_link("Deactivate")
-      end
+        fill_in 'Name', with: "Skinny Tires"
+        fill_in 'Price', with: 222
+        fill_in 'Description', with: "Half the tire at twice the cost :^)"
+        fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+        fill_in 'Inventory', with: 22
+
+        click_button "Update Item"
+
+        expect(current_path).to eq(merchant_items_path)
+
+        expect(page).to have_content("Skinny Tires")
+        expect(page).to have_content("Half the tire at twice the cost :^)")
+
     end
 
-    it 'I click on deactivate and the item is deactivated' do
-      visit merchant_items_path
+    it "wont let me edit items to have attributes that aren't valid" do
+      visit merchant_item_edit_path(@tire)
 
-      within "#item-#{@tire.id}" do
-        click_link "Deactivate"
-      end
-      expect(current_path).to eq(merchant_items_path)
-      expect(page).to have_content("Item #{@tire.id} is not for sale")
-      within "#item-#{@tire.id}" do
-        expect(page).to_not have_content("Active")
-        expect(page).to have_content("Inactive")
-      end
+      fill_in 'Name', with: ""
+      fill_in 'Price', with: 222
+      fill_in 'Description', with: "Half the tire at twice the cost :^)"
+      fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+      fill_in 'Inventory', with: 22
+
+      click_button "Update Item"
+
+      expect(page).to have_content("Name can't be blank")
+      fill_in 'Name', with: "Skinny Wheels"
+      fill_in 'Price', with: ("-25")
+      fill_in 'Inventory', with: ("-55")
+      click_button "Update Item"
+      expect(page).to have_content("Price must be greater than 0 and Inventory must be greater than or equal to 0")
     end
 
-    it 'I click on deactivate and the item is activated' do
-      visit merchant_items_path
+    it 'I get a flash message if I put a float into price or inventory' do
+      visit merchant_item_edit_path(@tire)
 
-      within "#item-#{@tire.id}" do
-        click_link "Deactivate"
-        click_link "Activate"
-      end
-      expect(current_path).to eq(merchant_items_path)
-      expect(page).to have_content("Item #{@tire.id} is for sale")
-      within "#item-#{@tire.id}" do
-        expect(page).to_not have_content("Inactive")
-        expect(page).to have_content("Active")
-      end
-    end
+      fill_in 'Name', with: "Gatorskins"
+      fill_in 'Price', with: 0.7
+      fill_in 'Description', with: "They'll never pop!"
+      fill_in 'Image', with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+      fill_in 'Inventory', with: 0.5
 
-    it 'I can delete never ordered items' do
-      taco = @meg.items.create(name: "taco", description: "its a taco", price: 1, image: "https://upload.wikimedia.org/wikipedia/commons/3/3a/NCI_Visuals_Food_Taco.jpg", inventory: 5000)
-      visit merchant_items_path
+      click_button "Update Item"
 
-      within "#item-#{@tire.id}" do
-        expect(page).to_not have_link("Delete")
-      end
-
-      within "#item-#{@bottle.id}" do
-        expect(page).to_not have_link("Delete")
-      end
-
-      within "#item-#{taco.id}" do
-        expect(page).to have_link("Delete")
-        click_link "Delete"
-      end
-
-      expect(current_path).to eq(merchant_items_path)
-      expect(page).to_not have_content(taco.name)
+      expect(page).to have_content("Price must be an integer and Inventory must be an integer")
+      expect(page).to have_button("Update Item")
     end
   end
   
   after(:each) do
     ItemOrder.destroy_all
     Order.destroy_all
-    User.destroy_all
+    User.destroy_all  
     Merchant.destroy_all
   end
 end
