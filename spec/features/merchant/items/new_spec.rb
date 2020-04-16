@@ -23,6 +23,9 @@ RSpec.describe "As a merchant user", type: :feature do
     price = 10
     image_url = "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg"
     inventory = 32
+    placeholder = "https://upload.wikimedia.org/wikipedia/commons/1/15/No_image_available_600_x_450.svg"
+
+    expect(find_field("Image").value).to_not eq(placeholder)
 
     fill_in :name, with: name
     fill_in :price, with: price
@@ -139,6 +142,32 @@ RSpec.describe "As a merchant user", type: :feature do
     expect(find_field("Price").value).to eq(price.to_s)
     expect(find_field("Image").value).to eq(image_url)
     expect(find_field("Inventory").value).to eq(inventory.to_s)
+  end
+
+  it "I cannot create an item with a float for a price or inventory" do
+    visit merchant_items_path
+
+    click_link "New Item"
+
+    expect(current_path).to eq(merchant_items_new_path)
+
+    name = "Pull Toy"
+    description = "Great pull toy!"
+    price = (0.5)
+    image_url = "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg"
+    inventory = (0.5)
+
+    fill_in :name, with: name
+    fill_in :price, with: price
+    fill_in :description, with: description
+    fill_in :image, with: image_url
+    fill_in :inventory, with: inventory
+    click_button "Create Item"
+
+    expect(page).to have_content("Price must be an integer and Inventory must be an integer")
+    expect(find_field("Price").value).to eq("0")
+    expect(find_field("Image").value).to eq(image_url)
+    expect(find_field("Inventory").value).to eq("0")
   end
 
   after(:each) do
