@@ -13,7 +13,7 @@ Contributors:
 
 Users are able to register, login, add items to the cart and place the order. Users employed by a merchant on the site can fulfill part of a users order if that order contains items that they sell. If this all other items have already been fulfilled then an admin user will be able to ship that order.
 
-This project was built in 10 days and implemented the following:
+This project was built in 10 days and implemented the following.
 
 Design patterns:
 - TDD (Test Driven Development)
@@ -50,15 +50,14 @@ Bundler version 2.0.1
 
 ## Testing
 __To run the entire test suite on your local machine run the following command__
-
 ```
 $ rspec
 ```
 
 Note: You may need to prepend this command with `bundle exec`
 
-__To run a specific test file run the following command__
 
+__To run a specific test file run the following command__
 
 ```
 $ rspec <file_path>
@@ -66,8 +65,8 @@ $ rspec <file_path>
 
 Note: Your file path may look something like `spec/features/items/index_spec.rb`
 
-__To run a specific test within a test file run the following command__
 
+__To run a specific test within a test file run the following command__
 ```
 $ rspec <file_path>:<line_number>
 ```
