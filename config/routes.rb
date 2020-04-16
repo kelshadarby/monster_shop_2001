@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get ":id/items", to: "items#index", as: :items
       get ":id/items/:item_id", to: "items#show", as: :item_show
       patch ":id/items/:item_id", to: "items#update", as: :item_update
+      delete "/items/:id", to: "items#destroy", as: :item_destroy
       get ":id/orders/:order_id", to: "orders#show", as: :order_show
     end
   end
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
     get "/items/new", to: "items#new"
     post "/items", to: "items#create"
     patch "/items/:id", to: "items#update", as: :item_update
+    delete "/items/:id", to: "items#destroy", as: :item_destroy
     get "/orders/:id", to: "orders#show", as: :order_show
     patch "/itemorders/:id", to: "item_orders#update", as: :item_order_update
   end
