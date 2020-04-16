@@ -8,6 +8,11 @@ class Merchant::ItemsController < Merchant::BaseController
     @item = Item.new()
   end
 
+  def show
+    @merchant = Merchant.find(current_user.merchant.id)
+    @item = Item.find(params[:id])
+  end
+
   def create
     merchant = Merchant.find(current_user.merchant.id)
     @item = merchant.items.new(item_params)
