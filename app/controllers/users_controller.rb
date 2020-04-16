@@ -20,8 +20,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find(current_user.id)
-    flash[:success] = "Logged in as #{user.name}"
+    if current_user
+      user = User.find(current_user.id)
+      flash[:success] = "Logged in as #{user.name}"
+    else
+      render file: "/public/404"
+    end
   end
 
   def change_password
