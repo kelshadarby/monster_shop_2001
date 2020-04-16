@@ -29,6 +29,10 @@ class Order <ApplicationRecord
   def canceled?
     status == "canceled"
   end
+  
+  def cancelable?
+    status == "pending" || status == "packaged"
+  end
 
   def number_of_items_for_merchant(merchant_id)
     item_orders.joins(:item).where(items: {merchant_id: merchant_id}).sum(:quantity)
@@ -42,10 +46,5 @@ class Order <ApplicationRecord
     return false if item_orders.where(status: "unfulfilled").any?
     self.update(status: "shipped")
   end
-
-  def shipped?
-    status == "shipped"
-  end
   
-
 end
