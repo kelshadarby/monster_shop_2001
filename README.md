@@ -90,7 +90,6 @@ __Admin User__
   - Add edit and remove items
 - _Restrictions_:
   - Create and place orders
-  - Cannot use their powers for evil
 - _Sample Credentials:_
 ```
 username: admin_user@example.com
