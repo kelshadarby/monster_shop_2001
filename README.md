@@ -1,4 +1,4 @@
-# [Monster Shop](https://the-best-monster-shop.herokuapp.com/ "Official Monster Shop App")
+# [Monster Shop](https://monster-shop-kd.herokuapp.com/ "Official Monster Shop App")
 
 Contributors:
 
