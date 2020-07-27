@@ -1,4 +1,4 @@
-![Monster Shop (1)](https://user-images.githubusercontent.com/55028065/88588261-7dfedf00-d014-11ea-81c2-cebbdf0b2c30.png)
+![Monster Shop (4)](https://user-images.githubusercontent.com/55028065/88595460-33835f80-d020-11ea-9da1-f5e8485b64fb.png)
 
 <p align="center" style="font-weight:bold;">
   View the live app
