@@ -1,9 +1,9 @@
 ![Monster Shop (1)](https://user-images.githubusercontent.com/55028065/88600768-4ac84a00-d02c-11ea-8bb3-265e19ffb30a.png)
 
-<p align="center" style="font-weight:bold;">
+<h3 align="center">
   View the live app
   <a href="https://monster-shop-kd.herokuapp.com/">here</a>
- </p>
+ </h3>
 
 ## Application Description
 
