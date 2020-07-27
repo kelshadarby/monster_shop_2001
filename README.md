@@ -2,7 +2,7 @@
 
 <p align="center" style="font-weight:bold;">
   View the live app
-  <a href="(https://monster-shop-kd.herokuapp.com/">here</a>
+  <a href="https://monster-shop-kd.herokuapp.com/">here</a>
  </p>
  
 Contributors:
