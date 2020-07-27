@@ -1,5 +1,10 @@
-# [Monster Shop](https://monster-shop-kd.herokuapp.com/ "Monster Shop App")
+![Monster Shop (1)](https://user-images.githubusercontent.com/55028065/88588261-7dfedf00-d014-11ea-81c2-cebbdf0b2c30.png)
 
+<p align="center" style="font-weight:bold;">
+  View the live app
+  <a href="(https://monster-shop-kd.herokuapp.com/">here</a>
+ </p>
+ 
 Contributors:
 
 [Fred Rondina](https://github.com/fredrondina96 "Fred Rondina's GitHub Profile"),
