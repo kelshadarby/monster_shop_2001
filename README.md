@@ -4,13 +4,6 @@
   View the live app
   <a href="https://monster-shop-kd.herokuapp.com/">here</a>
  </p>
- 
-Contributors:
-
-[Fred Rondina](https://github.com/fredrondina96 "Fred Rondina's GitHub Profile"),
-[Kelsha Darby](https://github.com/kelshadarby "Kelsha Darby's GitHub Profile") &
-[Brian Greeson](https://github.com/brian-greeson "Brian Greeson's GitHub Profile")
-
 
 ## Application Description
 
@@ -204,3 +197,12 @@ Also Viewable By:
 
 ## Database Design
 ![Database Diagram](https://user-images.githubusercontent.com/55028065/79511093-d711ac80-7ffb-11ea-88cb-1caa1884652c.png "Monster Shop Database Layout")
+
+## Contributors
+Contributors:
+
+[Fred Rondina](https://github.com/fredrondina96 "Fred Rondina's GitHub Profile")
+
+[Kelsha Darby](https://github.com/kelshadarby "Kelsha Darby's GitHub Profile")
+
+[Brian Greeson](https://github.com/brian-greeson "Brian Greeson's GitHub Profile")
